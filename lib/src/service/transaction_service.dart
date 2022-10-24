@@ -73,7 +73,6 @@ class TransactionService{
 
   Future<Map?> cardPayment(Map payInfo) async {
     try {
-      print(payInfo);
       var map = jsonEncode(payInfo);
       var response = await client.post(Uri.parse(Strings.transactionPaymentUrl),
           body: map,

@@ -18,6 +18,7 @@ dependencies:
   google_fonts: ^3.0.1
   credit_card_field: ^1.0.2
   top_snackbar_flutter: ^2.1.1
+  flutter_inappwebview: ^5.7.1
   webview_flutter: ^3.0.4
   flutter:
     sdk: flutter

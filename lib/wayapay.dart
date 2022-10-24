@@ -18,7 +18,7 @@ class Wayapay {
 
 
    checkout(BuildContext cont){
-    var charge = Charge(amount: 100,
+    var charge = Charge(amount: 2,
         description:"mobile payment",
         deviceInformation:jsonEncode({'phone':"iphone"}),
         customer: Customer(name: "chisom Eti", email: "chisom@gmail.com", phoneNumber: "08103565207"),
