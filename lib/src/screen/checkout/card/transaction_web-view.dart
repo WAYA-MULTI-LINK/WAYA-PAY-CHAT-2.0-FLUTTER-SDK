@@ -34,6 +34,7 @@ class _CardWebViewState extends State<CardWebView> {
     webViewController?.loadData(
         data: widget.htmlData.data.callbackResponse, mimeType: 'text/html', encoding: 'utf-8');
   }
+  var wayaPay = "pay.wayapay.ng";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,23 +42,43 @@ class _CardWebViewState extends State<CardWebView> {
       body:InAppWebView(
         initialUrlRequest: URLRequest(url:Uri.parse(widget.htmlData.data.callbackUrl) ),
         onUpdateVisitedHistory: (a,b,c){
-          print(b!.path);
-          print("tessssssssssss");
+         if(b!=null){
+           var uri = b!;
+           print("hmm");
+           var link = uri.host+uri.path+uri.fragment;
+           print(link);
+
+         }
+         print(b!=null);
+
+
         },
         key: webViewKey,
         initialOptions:options,
         onReceivedServerTrustAuthRequest: (controller, challenge) async {
-          print(challenge);
           return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
         },
         onWebViewCreated: (controller) {
           webViewController = controller;
+
         },
-        onLoadStart: (controller,url){
-          print(url!.path);
+        onLoadStart: (controller,b){
+          if(b!=null){
+            var uri = b!;
+            print("end");
+            var link = uri.host+uri.path+uri.fragment;
+            print(link);
+
+          }
         },
-        onLoadStop:(controller,url){
-          print(url!.path+'end');
+        onLoadStop:(controller,b){
+          if(b!=null){
+            var uri = b!;
+            print("haaaa");
+            var link = uri.host+uri.path+uri.fragment;
+            print(link);
+
+          }
         },
 
         androidOnPermissionRequest: (controller, origin, resources) async {
