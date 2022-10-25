@@ -2,22 +2,26 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:wayapay/src/common/my_strings.dart';
 import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/models/failure.dart';
 import 'package:wayapay/src/models/response_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:wayapay/src/models/traansaction_status.dart';
 import 'package:wayapay/src/models/ussd_payload.dart';
 import 'package:wayapay/src/utils/constants.dart';
 class TransactionService{
 
-
+final String baseUrl;
 
   var client = http.Client();
+
+  TransactionService(this.baseUrl);
 
   Future<Map?> startTransaction(Charge charge) async {
     try {
       var map = jsonEncode(charge.toJson());
-      var response = await client.post(Uri.parse(Strings.transactionRequestUrl),
+      var response = await client.post(Uri.parse(baseUrl+Strings.transactionRequestUrl),
           body: map,
           headers: {
         "Content-type": "application/json",
@@ -48,7 +52,7 @@ class TransactionService{
             "merchantPublicKey": sdkKey
           }
       );
-      var response = await client.post(Uri.parse(Strings.cardEncriptionUrl),
+      var response = await client.post(Uri.parse(baseUrl+Strings.cardEncriptionUrl),
           body: map,
           headers: {
             "Content-type": "application/json",
@@ -74,7 +78,7 @@ class TransactionService{
   Future<Map?> cardPayment(Map payInfo) async {
     try {
       var map = jsonEncode(payInfo);
-      var response = await client.post(Uri.parse(Strings.transactionPaymentUrl),
+      var response = await client.post(Uri.parse(baseUrl+Strings.transactionPaymentUrl),
           body: map,
           headers: {
             "Content-type": "application/json",
@@ -103,7 +107,7 @@ class TransactionService{
         "cardEncrypt":cardData,
         "tranId":tranId
       });
-      var response = await client.post(Uri.parse(Strings.transactionProcessingUrl),
+      var response = await client.post(Uri.parse(baseUrl+Strings.transactionProcessingUrl),
           body: map,
           headers: {
             "Content-type": "application/json",
@@ -128,7 +132,7 @@ class TransactionService{
 
   Future<Map?> getBankList() async {
     try {
-      var response = await client.get(Uri.parse(Strings.getUssdBanksUrl),
+      var response = await client.get(Uri.parse(baseUrl+Strings.getUssdBanksUrl),
           headers: {
             "Content-type": "application/json",
           });
@@ -153,7 +157,7 @@ class TransactionService{
   Future<Map?> getUssd(UssdPayload ussdPayload) async {
     try {
       var map = jsonEncode(ussdPayload.toJson());
-      var response = await client.post(Uri.parse(Strings.ussdTransactionUrl),
+      var response = await client.post(Uri.parse(baseUrl+Strings.ussdTransactionUrl),
           body: map,
           headers: {
             "Content-type": "application/json",
@@ -175,16 +179,25 @@ class TransactionService{
   }
 
 
-  Future<Map?> getUssdStatus(String  tranID) async {
+  Future<TransactionStatus?> getUssdStatus(String  tranID) async {
     try {
-      var response = await client.get(Uri.parse("${Strings.ussdTransactionStatusUrl}/$tranID"),
+      var response = await client.get(Uri.parse("${baseUrl+Strings.ussdTransactionStatusUrl}/$tranID"),
           headers: {
             "Content-type": "application/json",
           });
       var data = jsonDecode(response.body);
       if(response.statusCode==200){
-
-        return data;
+        return TransactionStatus(
+            success: true,
+            id: "",
+            message: data['data']??""
+        );
+      }else{
+        return TransactionStatus(
+            success: false,
+            id:"" ,
+            message: data['details'].toString()??"something went wrong"
+        );
       }
     } on SocketException catch (_) {
       throw Failure("No internet connection");
@@ -195,8 +208,11 @@ class TransactionService{
     } catch (e) {
       throw Failure("Something went wrong. Try again");
     }
-    return null;
+
   }
+
+
+
 
 
   Future<dynamic> payAttitude(String cardEncrypt,String tranId) async {
@@ -205,7 +221,7 @@ class TransactionService{
         "cardEncrypt":cardEncrypt,
         "tranId":tranId
       });
-      var response = await client.post(Uri.parse(Strings.postPayAttitudeUrl),
+      var response = await client.post(Uri.parse(baseUrl+Strings.postPayAttitudeUrl),
           body: map,
           headers: {
             "Content-type": "application/json",
@@ -226,6 +242,31 @@ class TransactionService{
     }
     return null;
   }
+
+
+  Future<Map?> transactionStatus(String  tranID) async {
+    try {
+      var response = await client.get(Uri.parse("${baseUrl+Strings.ussdTransactionStatusUrl}/$tranID"),
+          headers: {
+            "Content-type": "application/json",
+          });
+      var data = jsonDecode(response.body);
+      if(response.statusCode==200){
+
+        return data;
+      }
+    } on SocketException catch (_) {
+      throw Failure("No internet connection");
+    } on HttpException catch (_) {
+      throw Failure("Service not currently available");
+    } on TimeoutException catch (_) {
+      throw Failure("Poor internet connection");
+    } catch (e) {
+      throw Failure("Something went wrong. Try again");
+    }
+    return null;
+  }
+
 
 
 }

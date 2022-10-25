@@ -121,7 +121,8 @@ class _UssdCheckoutState extends State<UssdCheckout> {
       await model.startTransaction();
       model.getUssd(bankData!).then((value){
        if(value!=null){
-         Navigator.push(context, MaterialPageRoute(builder: (context)=>UssdDial(ussd: value!)));
+         Navigator.push(context, MaterialPageRoute(builder: (context)=>UssdDial(ussd: value!, 
+           bankName: bankData!.bankName,)));
        }
       });
     }else{

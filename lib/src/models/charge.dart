@@ -18,12 +18,14 @@ class Charge {
     required this.customer,
     required this.merchantId,
     required this.wayaPublicKey,
+    required this.isTest
   });
 
   int amount;
   String description;
   String currency;
   int fee;
+  bool isTest;
   String deviceInformation;
   Customer customer;
   String merchantId;
@@ -40,6 +42,7 @@ class Charge {
     String? wayaPublicKey,
   }) =>
       Charge(
+        isTest: isTest??this.isTest,
         amount: amount ?? this.amount,
         description: description ?? this.description,
         currency: currency ?? this.currency,
@@ -59,6 +62,7 @@ class Charge {
     customer: Customer.fromJson(json["customer"]),
     merchantId: json["merchantId"],
     wayaPublicKey: json["wayaPublicKey"],
+    isTest: true
   );
 
   Map<String, dynamic> toJson() => {

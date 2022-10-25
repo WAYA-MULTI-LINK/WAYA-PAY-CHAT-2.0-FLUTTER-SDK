@@ -5,6 +5,7 @@ import 'package:wayapay/src/common/my_strings.dart';
 import 'package:wayapay/src/models/card.dart';
 import 'package:wayapay/src/screen/checkout/card/input/base_textfield.dart';
 import 'package:wayapay/src/screen/checkout/card/input/formotter.dart';
+import 'package:wayapay/src/utils/constants.dart';
 
 
 class NumberField extends BaseTextField {

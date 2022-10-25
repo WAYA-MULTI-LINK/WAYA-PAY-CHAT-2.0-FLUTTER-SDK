@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:wayapay/src/enum/app_state.dart';
 import 'package:wayapay/src/models/bank_model.dart';
 import 'package:wayapay/src/models/card.dart';
@@ -6,6 +7,7 @@ import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/models/customer.dart';
 import 'package:wayapay/src/models/encrpt.dart';
 import 'package:wayapay/src/models/htm_data.dart';
+import 'package:wayapay/src/models/traansaction_status.dart';
 import 'package:wayapay/src/models/ussd_model.dart';
 import 'package:wayapay/src/models/ussd_payload.dart';
 import 'package:wayapay/src/provider/base_veiw_model.dart';
@@ -16,12 +18,14 @@ var deviceInfo = "{\"vendorSub\":\"\",\"productSub\":\"20030107\",\"vendor\":\"G
 class TransactionProvider extends BaseViewModel{
 final Charge charge;
 
+final TransactionService transactionService;
+final BuildContext mainContext;
+ TransactionProvider(this.charge,this.transactionService, this.mainContext);
 
- TransactionProvider(this.charge);
 
-  TransactionService transactionService = TransactionService();
   CustomerCharge? customerCharge;
   List<Bank> banks =[];
+
 
   Future<CustomerCharge?> startTransaction()async{
     try{
@@ -205,4 +209,19 @@ Future<Ussd?> getUssd(Bank bankData,{String channel = "USSD" })async{
     }
  }
 
+
+
+Future<TransactionStatus?> getUssdStatus()async{
+  try{
+    setState(AppState.busy);
+    var data = await transactionService.getUssdStatus(customerCharge!.data.tranId);
+    setState(AppState.idle);
+     return data;
+  }catch(e){
+    setState(AppState.idle);
+  }
+  return null;
+
+
+}
 }

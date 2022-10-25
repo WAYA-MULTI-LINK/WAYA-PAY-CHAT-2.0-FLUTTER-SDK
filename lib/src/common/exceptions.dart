@@ -1,11 +1,13 @@
 
 
-import 'my_strings.dart';
+import 'package:wayapay/src/utils/constants.dart';
 
-class WayapayException implements Exception {
+
+
+class WayaPayException implements Exception {
   String? message;
 
-  WayapayException(this.message);
+  WayaPayException(this.message);
 
   @override
   String toString() {
@@ -14,19 +16,19 @@ class WayapayException implements Exception {
   }
 }
 
-class AuthenticationException extends WayapayException {
+class AuthenticationException extends WayaPayException {
   AuthenticationException(String message) : super(message);
 }
 
-class CardException extends WayapayException {
+class CardException extends WayaPayException {
   CardException(String message) : super(message);
 }
 
-class ChargeException extends WayapayException {
+class ChargeException extends WayaPayException {
   ChargeException(String? message) : super(message);
 }
 
-class InvalidAmountException extends WayapayException {
+class InvalidAmountException extends WayaPayException {
   int amount = 0;
 
   InvalidAmountException(this.amount)
@@ -34,13 +36,13 @@ class InvalidAmountException extends WayapayException {
             'amount. only positive non-zero values are allowed.');
 }
 
-class InvalidEmailException extends WayapayException {
+class InvalidEmailException extends WayaPayException {
   String? email;
 
   InvalidEmailException(this.email) : super('$email  is not a valid email');
 }
 
-class WayapaySdkNotInitializedException extends WayapayException {
+class WayapaySdkNotInitializedException extends WayaPayException {
   WayapaySdkNotInitializedException(String message) : super(message);
 }
 

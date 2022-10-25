@@ -57,13 +57,13 @@ class _PayAttitudeState extends State<PayAttitude> {
             onChanged: (text) => {
 
             },
-            // suffix: Image.asset(
-            //   'assets/images/pay_attitude.png',
-            //   key: const Key("payAttitude"),
-            //   height: 40,
-            //   width: 80,
-            //   package: 'wayapay_flutter',
-            // ),
+            suffix: Image.asset(
+              'assets/images/pay_attitude.png',
+              key: const Key("payAttitude"),
+              height: 40,
+              width: 80,
+              package: 'wayapay',
+            ),
           ),
           const SizedBox(
             height: 20,

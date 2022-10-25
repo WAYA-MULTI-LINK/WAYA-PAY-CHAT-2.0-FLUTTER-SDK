@@ -40,8 +40,15 @@ class _PaymentPageState extends State<PaymentPage> {
       child: Scaffold(
      floatingActionButton: FloatingActionButton(
        onPressed: (){
-         var model = context.read<TransactionProvider>();
-         model.startTransaction();
+          var model = context.read<TransactionProvider>();
+         // model.startTransaction();
+        //  Navigator.pop(model.mainContext);
+         // Navigator.popUntil(model.mainContext, (route) {
+         //   print(route.settings.name);
+         //   return route.settings.name == 'wayapay';
+         // },
+         //
+         // );
        },
      ),
         appBar: appBar(context),

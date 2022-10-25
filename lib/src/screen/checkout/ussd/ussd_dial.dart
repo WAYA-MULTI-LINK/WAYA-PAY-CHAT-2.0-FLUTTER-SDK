@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:wayapay/src/alert/alert.dart';
 import 'package:wayapay/src/models/ussd_model.dart';
+import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/screen/main_page/footer.dart';
 import 'package:wayapay/src/screen/main_page/top.dart';
 import 'package:wayapay/src/widget/appbar.dart';
@@ -11,12 +14,14 @@ import 'package:wayapay/src/widget/button.dart';
 
 class UssdDial extends StatelessWidget {
   final Ussd ussd;
-  const UssdDial({Key? key, required this.ussd}) : super(key: key);
+  final String bankName;
+  const UssdDial({Key? key, required this.ussd, required this.bankName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width!;
     double height = MediaQuery.of(context).size.height!;
+    var model = context.read<TransactionProvider>();
     return Scaffold(
      appBar: appBar(context),
       body: Padding(
@@ -32,7 +37,7 @@ class UssdDial extends StatelessWidget {
             Text(
               """Copy the following code below to your \n
           mobile device and dial to complete this\n
-    transaction with GTBank""",
+          transaction with $bankName""",
               style: GoogleFonts.dmSans(
                 textStyle: TextStyle(
                     fontWeight: FontWeight.w400,
@@ -86,8 +91,8 @@ class UssdDial extends StatelessWidget {
             ),
             AccentButton(
                 key: const Key("paymentMadeButton"),
-                onPressed: () => {
-                 // Navigator.of(context).pop(),
+                onPressed: () {
+                  check(model,context);
                 },
                 text: "I have made payment",
                 showProgress: false),
@@ -110,6 +115,28 @@ class UssdDial extends StatelessWidget {
           message: "Copied to clipboard",
         ),
       );
+    });
+
+  }
+
+  check(TransactionProvider model, BuildContext context) async{
+    Alerts.onProcessingAlert(context,onLoading: (cxt){
+      model.getUssdStatus().then((value){
+        Navigator.pop(cxt);
+        Future.delayed(const Duration(milliseconds: 500),(){
+         // Alerts.onSuccessAlert(context);
+          if(value!=null){
+            if(value.success){
+              Alerts.onSuccessAlert(context);
+            }else{
+              Alerts.onPaymentFailed(context,message: value.message);
+            }
+          }
+        });
+
+      }).catchError((e){
+        Navigator.pop(cxt);
+      });
     });
 
   }

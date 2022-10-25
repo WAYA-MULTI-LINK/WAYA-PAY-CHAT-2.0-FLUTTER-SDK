@@ -23,17 +23,19 @@ class Strings {
   static const String unKnownResponse = 'Unknown server response';
   static const String cardInputInstruction = 'Enter your card details to pay';
   static const String baseUrl = 'https://services.wayapay.ng/';
+  static const String stagingBaseUrl = 'https://services.staging.wayapay.ng/';
   //Card Transactions
-  static const String transactionRequestUrl = '${baseUrl}payment-gateway/api/v1/request/transaction';
-  static const String transactionPaymentUrl = '${baseUrl}payment-gateway/api/v1/transaction/payment';
-  static const String transactionProcessingUrl = '${baseUrl}payment-gateway/api/v1/transaction/processing';
-  static const String cardEncriptionUrl = '${baseUrl}payment-gateway/api/v1/card/encryption';
+  static const String transactionRequestUrl = 'payment-gateway/api/v1/request/transaction';
+  static const String transactionPaymentUrl = 'payment-gateway/api/v1/transaction/payment';
+  static const String transactionProcessingUrl = 'payment-gateway/api/v1/transaction/processing';
+  static const String cardEncriptionUrl = 'payment-gateway/api/v1/card/encryption';
+  static const String transactionStatusUrl = 'payment-gateway/api/v1/reference/query';
 
   //USSD Transactions
-  static const String getUssdBanksUrl = '${baseUrl}ussd-service/api/v2/bank/fetch-all';
-  static const String ussdTransactionUrl = '${baseUrl}ussd-service/api/v2/transaction';
-  static const String ussdTransactionStatusUrl = '${baseUrl}ussd-service/api/v2/transaction/query-ussd-transaction';
+  static const String getUssdBanksUrl = 'ussd-service/api/v2/bank/fetch-all';
+  static const String ussdTransactionUrl = 'ussd-service/api/v2/transaction';
+  static const String ussdTransactionStatusUrl = 'ussd-service/api/v2/transaction/query-ussd-transaction';
   //Pay Attitude
-  static const String postPayAttitudeUrl = '${baseUrl}payment-gateway/api/v1/transaction/processing/bank';
+  static const String postPayAttitudeUrl = 'payment-gateway/api/v1/transaction/processing/bank';
 
 }

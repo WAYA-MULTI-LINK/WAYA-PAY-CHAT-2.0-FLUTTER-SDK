@@ -42,13 +42,13 @@ class AuthenticateCard extends StatelessWidget {
             SizedBox(
               height: height * 0.092,
             ),
-            // Image.asset(
-            //   'assests/images/3ds.png',
-            //   key: const Key("IssuerIcon"),
-            //   height: height * 0.17,
-            //   width: width * 0.17,
-            //   package: 'wayapay_flutter',
-            // ),
+            Image.asset(
+              'assests/images/3ds.png',
+              key: const Key("IssuerIcon"),
+              height: height * 0.17,
+              width: width * 0.17,
+              package: 'wayapay',
+            ),
 
             Text(
               "Kindly click the button below to \nauthenticate with your bank",
