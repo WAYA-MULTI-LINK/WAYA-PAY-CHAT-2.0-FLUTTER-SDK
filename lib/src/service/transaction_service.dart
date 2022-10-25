@@ -205,15 +205,12 @@ class TransactionService{
         "cardEncrypt":cardEncrypt,
         "tranId":tranId
       });
-      print(map);
       var response = await client.post(Uri.parse(Strings.postPayAttitudeUrl),
           body: map,
           headers: {
             "Content-type": "application/json",
           });
       var data = jsonDecode(response.body);
-      print(data);
-      print(response.statusCode);
       if(response.statusCode==200){
 
         return "good";
