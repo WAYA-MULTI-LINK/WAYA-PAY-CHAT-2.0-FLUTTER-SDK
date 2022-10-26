@@ -244,16 +244,25 @@ final String baseUrl;
   }
 
 
-  Future<Map?> transactionStatus(String  tranID) async {
+  Future<TransactionStatus?> transactionStatus(String  tranID) async {
     try {
-      var response = await client.get(Uri.parse("${baseUrl+Strings.ussdTransactionStatusUrl}/$tranID"),
+      var response = await client.get(Uri.parse("${baseUrl+Strings.transactionStatusUrl}/$tranID"),
           headers: {
             "Content-type": "application/json",
           });
       var data = jsonDecode(response.body);
       if(response.statusCode==200){
-
-        return data;
+        return TransactionStatus(
+            success: data['data']['Status']=="SUCCESSFUL"?true:false,
+            id: "",
+            message: "Transaction ${data['data']['Status']??""}".toUpperCase()
+        );
+      }else{
+        return TransactionStatus(
+            success: false,
+            id:"" ,
+            message: data['details'].toString()
+        );
       }
     } on SocketException catch (_) {
       throw Failure("No internet connection");
@@ -268,5 +277,69 @@ final String baseUrl;
   }
 
 
+Future<Map?> loginToWallet(String email,String password) async {
+  try {
+    var map = jsonEncode({
+      "emailOrPhoneNumber": email,
+      "password": password
+    });
+    var response = await client.post(Uri.parse(baseUrl+Strings.loginToWallet),
+        body: map,
+        headers: {
+          "Content-type": "application/json",
+        });
+    var data = jsonDecode(response.body);
+    if(response.statusCode==200){
+
+      return data;
+    }
+  } on SocketException catch (_) {
+    throw Failure("No internet connection");
+  } on HttpException catch (_) {
+    throw Failure("Service not currently available");
+  } on TimeoutException catch (_) {
+    throw Failure("Poor internet connection");
+  } catch (e) {
+    throw Failure("Something went wrong. Try again");
+  }
+  return null;
+}
+
+
+
+Future<TransactionStatus> makePaymentToWallet(String acctNumber,String pin,String tranRef,String device) async {
+  try {
+    var map = jsonEncode({
+      "accountNo": acctNumber,
+      "pin": pin,
+      "refNo": tranRef,
+      "deviceInformation":device
+    });
+    var response = await client.post(Uri.parse(baseUrl+Strings.loginToWallet),
+        body: map,
+        headers: {
+          "Content-type": "application/json",
+        });
+    var data = jsonDecode(response.body);
+     return TransactionStatus(
+         success: data['status'],
+         message: data['message'],
+         id: "");
+  } on SocketException catch (_) {
+    throw Failure("No internet connection");
+  } on HttpException catch (_) {
+    throw Failure("Service not currently available");
+  } on TimeoutException catch (_) {
+    throw Failure("Poor internet connection");
+  } catch (e) {
+    throw Failure("Something went wrong. Try again");
+  }
 
 }
+
+
+
+}
+
+//veragreen20@gmail.com
+//Password@234

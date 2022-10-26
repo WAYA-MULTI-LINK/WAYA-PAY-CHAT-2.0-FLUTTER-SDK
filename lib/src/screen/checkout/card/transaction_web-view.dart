@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:provider/provider.dart';
+import 'package:wayapay/src/alert/alert.dart';
 import 'package:wayapay/src/models/htm_data.dart';
+import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/widget/appbar.dart';
 
 class CardWebView extends StatefulWidget {
@@ -32,16 +35,28 @@ class _CardWebViewState extends State<CardWebView> {
 
 
   var wayaPay = "pay.wayapay.ng";
+  bool hasOpen = false;
   @override
   Widget build(BuildContext context) {
+    var model = context.watch<TransactionProvider>();
     return Scaffold(
       appBar: appBar(context),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          webViewController!.getUrl().then((value){
+            print(value);
+          });
+        },
+      ),
       body:InAppWebView(
         initialUrlRequest: URLRequest(url:Uri.parse(widget.htmlData.data.callbackUrl) ),
         onUpdateVisitedHistory: (a,b,c){
          if(b!=null){
            var uri = b!;
            var link = uri.host+uri.path+uri.fragment;
+           print('lol');
+           print(link);
+
          }
          },
         key: webViewKey,
@@ -53,15 +68,22 @@ class _CardWebViewState extends State<CardWebView> {
           webViewController = controller;
           },
         onLoadStart: (controller,b){
+          print('load');
           if(b!=null){
             var uri = b!;
             var link = uri.host+uri.path+uri.fragment;
+
           }
         },
         onLoadStop:(controller,b){
           if(b!=null){
             var uri = b!;
             var link = uri.host+uri.path+uri.fragment;
+            print(link);
+            if(link.contains(wayaPay)&&hasOpen==false){
+              hasOpen=true;
+              check(model, context,);
+            }
 
 
           }
@@ -82,4 +104,34 @@ class _CardWebViewState extends State<CardWebView> {
     super.initState();
     //_loadHTML();
   }
+
+  check(TransactionProvider model, BuildContext context) async{
+    Alerts.onProcessingAlert(context,onLoading: (cxt){
+      model.checkStatus().then((value){
+        Navigator.pop(cxt);
+        Future.delayed(const Duration(milliseconds: 500),(){
+          // Alerts.onSuccessAlert(context);
+          if(value!=null){
+            if(value.success){
+              Alerts.onSuccessAlert(context);
+            }else{
+              Alerts.onPaymentFailed(context,message: value.message);
+            }
+          }
+        });
+
+      }).catchError((e){
+        Navigator.pop(cxt);
+      });
+    });
+
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+   webViewController=null;
+  }
+
 }

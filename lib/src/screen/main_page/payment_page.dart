@@ -6,6 +6,7 @@ import 'package:wayapay/src/models/bottom_nav_model.dart';
 import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/res/text.dart';
+import 'package:wayapay/src/screen/checkout/account/account.dart';
 import 'package:wayapay/src/screen/checkout/pay_attitude/pay_attitude.dart';
 import 'package:wayapay/src/screen/checkout/ussd/ussd.dart';
 import 'package:wayapay/src/screen/main_page/footer.dart';
@@ -27,7 +28,7 @@ class _PaymentPageState extends State<PaymentPage> {
   var method = [
     BottomNavModel(name: "Card", icon: Icons.credit_card, body: const CardMethod()),
     BottomNavModel(name: "USSD",  icon: Icons.perm_phone_msg_rounded, body: const UssdCheckout()),
-    BottomNavModel(name: "Account",  icon: Icons.account_balance_wallet, body: const PayAttitude()),
+    BottomNavModel(name: "Account",  icon: Icons.account_balance_wallet, body: const AccountPayment()),
     BottomNavModel(name: "Pay Attitude", icon: Icons.phone_enabled_rounded, body:const PayAttitude())
   ];
   int currentIndex = 0;

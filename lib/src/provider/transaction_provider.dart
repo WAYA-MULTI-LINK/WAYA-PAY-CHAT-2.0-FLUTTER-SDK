@@ -8,6 +8,7 @@ import 'package:wayapay/src/models/customer.dart';
 import 'package:wayapay/src/models/encrpt.dart';
 import 'package:wayapay/src/models/htm_data.dart';
 import 'package:wayapay/src/models/traansaction_status.dart';
+import 'package:wayapay/src/models/user_data.dart';
 import 'package:wayapay/src/models/ussd_model.dart';
 import 'package:wayapay/src/models/ussd_payload.dart';
 import 'package:wayapay/src/provider/base_veiw_model.dart';
@@ -86,7 +87,6 @@ Future<Encrypt?> processCardPayment(PaymentCard paymentCard,String encryptData,S
 }
 
 Future<Encrypt?> payAttitudePayment(String phone)async{
-    print(phone);
   try{
     setState(AppState.busy);
     var data = await transactionService.cardPayment(
@@ -194,7 +194,6 @@ Future<Ussd?> getUssd(Bank bankData,{String channel = "USSD" })async{
     }
 
   }catch(e){
-    print(e);
     setState(AppState.idle);
   }
   return null;
@@ -224,4 +223,52 @@ Future<TransactionStatus?> getUssdStatus()async{
 
 
 }
+
+
+Future<TransactionStatus?> checkStatus()async{
+  try{
+    setState(AppState.busy);
+    var data = await transactionService.transactionStatus(customerCharge!.data.tranId);
+    setState(AppState.idle);
+    return data;
+  }catch(e){
+    setState(AppState.idle);
+  }
+  return null;
+
+
+}
+
+Future<UserData?> loginToWallet(String email,String password)async{
+  try{
+    setState(AppState.busy);
+    var data = await transactionService.loginToWallet(email, password);
+    setState(AppState.idle);
+    if(data!=null){
+      return UserData.fromJson(data);
+    }
+  }catch(e){
+    setState(AppState.idle);
+  }
+  return null;
+
+
+}
+
+
+Future<TransactionStatus?> payToWallet(String acctNumber,String pin)async{
+  try{
+    setState(AppState.busy);
+    var data = await transactionService.makePaymentToWallet(acctNumber, pin,
+        customerCharge!.data.tranId, deviceInfo);
+   return data;
+  }catch(e){
+    setState(AppState.idle);
+  }
+  return null;
+
+
+
+}
+
 }

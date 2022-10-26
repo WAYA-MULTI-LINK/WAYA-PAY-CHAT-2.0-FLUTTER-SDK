@@ -20,14 +20,14 @@ class AuthenticateCard extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: appBar(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          var model = context.read<TransactionProvider>();
-         model.startTransaction();
-
-
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: (){
+      //     var model = context.read<TransactionProvider>();
+      //    model.startTransaction();
+      //
+      //
+      //   },
+      // ),
       
       body: Padding(
         padding: const EdgeInsets.only(left: 30,right: 30),
@@ -43,7 +43,7 @@ class AuthenticateCard extends StatelessWidget {
               height: height * 0.092,
             ),
             Image.asset(
-              'assests/images/3ds.png',
+              'assets/images/3ds.png',
               key: const Key("IssuerIcon"),
               height: height * 0.17,
               width: width * 0.17,
@@ -77,7 +77,7 @@ class AuthenticateCard extends StatelessWidget {
                 side: BorderSide(color: Colors.grey.shade200, width: 3),
               ),
               onPressed: () {
-                 Navigator.popUntil(context, (route) => route.settings.name == 'wayapay');
+                 Navigator.pop(context);
               },
               child: Text(
                 "Cancel",

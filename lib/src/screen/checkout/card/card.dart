@@ -74,12 +74,7 @@ class _CardMethodState extends State<CardMethod> {
               onSaved: (String? value) => {
                 _paymentCard!.number = CardUtils.getCleanedNumber(value),
               },
-              suffix: Icon(
-                Icons.credit_card,
-                key: const Key("DefaultIssuerIcon"),
-                size: (width * height) * 0.00009,
-                color: Colors.grey[600],
-              ),
+              suffix: getCardIcon(context)
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -226,7 +221,7 @@ class _CardMethodState extends State<CardMethod> {
         key: const Key("IssuerIcon"),
         height: height * 0.08,
         width: width * 0.08,
-        package: 'wayapay_flutter',
+        package: 'wayapay',
       );
     } else {
       widget = defaultIcon;

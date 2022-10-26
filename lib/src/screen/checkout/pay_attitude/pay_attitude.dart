@@ -6,6 +6,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/screen/checkout/card/input/base_textfield.dart';
+import 'package:wayapay/src/screen/checkout/pay_attitude/pay_attitude_complete.dart';
 import 'package:wayapay/src/widget/button.dart';
 
 class PayAttitude extends StatefulWidget {
@@ -102,6 +103,9 @@ class _PayAttitudeState extends State<PayAttitude> {
      model.payAttitudePayment(controller.text).then((value){
        if(value!=null){
         model.postPayAttitude(value.body.data);
+        Future.delayed(const Duration(seconds:1 ),(){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>PayAttitudeComplete()));
+        });
        }
      });
     }else{

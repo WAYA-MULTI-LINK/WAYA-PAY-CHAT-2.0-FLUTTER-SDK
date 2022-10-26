@@ -38,4 +38,8 @@ class Strings {
   //Pay Attitude
   static const String postPayAttitudeUrl = 'payment-gateway/api/v1/transaction/processing/bank';
 
+//wallet payment
+  static const String loginToWallet = 'payment-gateway/api/v1/authentication/wallet';
+  static const String makePaymentToWallet = 'payment-gateway/api/v1/wallet/payment';
+
 }

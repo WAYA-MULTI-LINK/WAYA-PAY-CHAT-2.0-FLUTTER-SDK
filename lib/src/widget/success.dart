@@ -29,7 +29,7 @@ class _SuccessTransactionState extends State<SuccessTransaction> {
     return WillPopScope(
       onWillPop: ()async{
         pop();
-        return false;
+        return true;
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
