@@ -57,7 +57,7 @@ class _SuccessTransactionState extends State<SuccessTransaction> {
               height: height * 0.01,
             ),
             Text(
-              "You Paid NGN ${widget.charge.amount} to ${widget.customerCharge.data.name} \n for the purchase/order of \n ${"demo"}",
+              "You Paid NGN ${widget.charge.amount} to ${widget.customerCharge.data.name} \n ",
               textAlign: TextAlign.center,
               style: GoogleFonts.dmSans(
                   textStyle: const TextStyle(

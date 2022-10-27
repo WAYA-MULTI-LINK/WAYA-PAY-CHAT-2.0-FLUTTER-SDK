@@ -11,10 +11,12 @@ import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/screen/main_page/payment_page.dart';
 import 'package:wayapay/src/service/transaction_service.dart';
 import 'package:wayapay/src/utils/constants.dart';
-import 'package:wayapay/src/utils/information.dart';
+
 
 import 'wayapay_platform_interface.dart';
 
+export 'package:wayapay/src/models/charge.dart';
+export 'package:wayapay/src/widget/appbar.dart';
 class Wayapay {
 
   Future<String?> getPlatformVersion() {
@@ -22,16 +24,8 @@ class Wayapay {
   }
 
 
-   checkout(BuildContext cont)async{
-    var charge = Charge(
-        amount: 2,
-        isTest: false,
-        description:"mobile payment",
-        deviceInformation:jsonEncode({'phone':"iphone"}),
-        customer: Customer(name: "chisom Eti", email: "chisom@gmail.com", phoneNumber: "08103565207"),
-        merchantId: 'MER_3zUWo1656418606145pYewf',
-        wayaPublicKey: "WAYAPUBK_PROD_0x271b51f9ec964a59a4438ddf2f71cea0"
-    );
+   checkout(BuildContext cont,Charge charge)async{
+
 
    var data = await Navigator.push(
       cont,

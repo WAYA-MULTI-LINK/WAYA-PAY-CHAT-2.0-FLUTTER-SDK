@@ -77,7 +77,7 @@ class _WalletState extends State<Wallet> {
                 ),
               ),
               const SizedBox(height: 14,),
-              Row(
+             walletData==null?SizedBox() :Row(
                 children: [
                   Container(
                     decoration:  BoxDecoration(
@@ -108,7 +108,7 @@ class _WalletState extends State<Wallet> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10,right: 10,bottom: 3,top: 5),
                       child:Text(
-                        'NGN 33,500.00',
+                        walletData!.clrBalAmt.toString().toCurrency(),
                         style: GoogleFonts.dmSans(
                           textStyle: const TextStyle(
                             fontWeight:FontWeight.w700,

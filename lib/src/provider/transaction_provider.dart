@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wayapay/src/enum/app_state.dart';
 import 'package:wayapay/src/models/bank_model.dart';
 import 'package:wayapay/src/models/card.dart';
@@ -40,13 +41,13 @@ final BuildContext mainContext;
       }
     }catch(e){
       setState(AppState.idle);
+      Fluttertoast.showToast(msg: e.toString());
     }
     return null;
 
   }
 
 Future<String?> encryptCard(String cardNo)async{
-    print(cardNo);
   try{
     setState(AppState.busy);
     var data = await transactionService.encryptCard(cardNo, charge.wayaPublicKey);
@@ -54,6 +55,7 @@ Future<String?> encryptCard(String cardNo)async{
     return data;
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -82,6 +84,7 @@ Future<Encrypt?> processCardPayment(PaymentCard paymentCard,String encryptData,S
     }
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -109,6 +112,7 @@ Future<Encrypt?> payAttitudePayment(String phone)async{
     }
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -125,6 +129,7 @@ Future<dynamic> postPayAttitude(String cardEncrypt)async{
 
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -142,6 +147,7 @@ Future<HtmlData?> processCard(String cardData,String tranId)async{
 
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -162,6 +168,7 @@ Future<BankModel?> getBanks()async{
 
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -196,6 +203,7 @@ Future<Ussd?> getUssd(Bank bankData,{String channel = "USSD" })async{
 
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -219,6 +227,7 @@ Future<TransactionStatus?> getUssdStatus()async{
      return data;
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -234,6 +243,7 @@ Future<TransactionStatus?> checkStatus()async{
     return data;
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -250,6 +260,7 @@ Future<UserData?> loginToWallet(String email,String password)async{
     }
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -266,6 +277,7 @@ Future<TransactionStatus?> payToWallet(String acctNumber,String pin,String token
    return data;
   }catch(e){
     setState(AppState.idle);
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 
@@ -284,6 +296,8 @@ Future<QrCodeData?> getQrCode()async{
     }
   }catch(e){
     setState(AppState.idle);
+
+    Fluttertoast.showToast(msg: e.toString());
   }
   return null;
 

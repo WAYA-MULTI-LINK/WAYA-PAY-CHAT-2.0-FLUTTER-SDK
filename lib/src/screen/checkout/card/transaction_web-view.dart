@@ -43,9 +43,7 @@ class _CardWebViewState extends State<CardWebView> {
       appBar: appBar(context),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          webViewController!.getUrl().then((value){
-            print(value);
-          });
+        check(model, context);
         },
       ),
       body:InAppWebView(
