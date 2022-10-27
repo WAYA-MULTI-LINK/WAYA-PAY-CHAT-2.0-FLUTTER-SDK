@@ -25,12 +25,12 @@ class Wayapay {
    checkout(BuildContext cont)async{
     var charge = Charge(
         amount: 2,
-        isTest: false,
+        isTest: true,
         description:"mobile payment",
         deviceInformation:jsonEncode({'phone':"iphone"}),
         customer: Customer(name: "chisom Eti", email: "chisom@gmail.com", phoneNumber: "08103565207"),
-        merchantId: 'MER_3zUWo1656418606145pYewf',
-        wayaPublicKey: "WAYAPUBK_PROD_0x271b51f9ec964a59a4438ddf2f71cea0"
+        merchantId: 'MER_qZaVZ1645265780823HOaZW',
+        wayaPublicKey: "WAYAPUBK_TEST_0x3442f06c8fa6454e90c5b1a518758c70"
     );
 
    var data = await Navigator.push(

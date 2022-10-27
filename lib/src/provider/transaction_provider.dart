@@ -256,11 +256,12 @@ Future<UserData?> loginToWallet(String email,String password)async{
 }
 
 
-Future<TransactionStatus?> payToWallet(String acctNumber,String pin)async{
+Future<TransactionStatus?> payToWallet(String acctNumber,String pin,String token)async{
   try{
     setState(AppState.busy);
     var data = await transactionService.makePaymentToWallet(acctNumber, pin,
-        customerCharge!.data.tranId, deviceInfo);
+        customerCharge!.data.tranId, deviceInfo,token);
+    setState(AppState.idle);
    return data;
   }catch(e){
     setState(AppState.idle);

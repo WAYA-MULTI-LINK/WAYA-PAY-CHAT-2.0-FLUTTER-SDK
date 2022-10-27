@@ -82,5 +82,4 @@ class PayAttitudeComplete extends StatelessWidget {
 
   }
 
-
 }

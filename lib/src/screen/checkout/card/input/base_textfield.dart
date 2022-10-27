@@ -13,6 +13,7 @@ class BaseTextField extends StatelessWidget {
   final String? initialValue;
   final double? inputWidth;
   final bool? obscureText;
+  final TextInputType? textInputType;
 
   const BaseTextField({
     Key? key,
@@ -26,7 +27,7 @@ class BaseTextField extends StatelessWidget {
     this.controller,
     this.initialValue,
     this.inputWidth,
-    this.obscureText = false
+    this.obscureText = false, this.textInputType
   }) : super(key: key);
 
   @override
@@ -50,7 +51,7 @@ class BaseTextField extends StatelessWidget {
         maxLines: 1,
         initialValue: initialValue,
         onChanged: onChanged,
-        keyboardType: TextInputType.number,
+        keyboardType:textInputType??TextInputType.number,
         decoration: InputDecoration(
           contentPadding:
           EdgeInsets.symmetric(vertical: (inputWidth ?? width * 0.04), horizontal: height*0.007),

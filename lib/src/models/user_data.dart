@@ -43,12 +43,12 @@ class Data {
     required  this.merchantName,
   });
 
-  List<Wallet> wallet;
+  List<WalletData> wallet;
   String token;
   String merchantName;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    wallet: List<Wallet>.from(json["wallet"].map((x) => Wallet.fromJson(x))),
+    wallet: List<WalletData>.from(json["wallet"].map((x) => WalletData.fromJson(x))),
     token: json["token"],
     merchantName: json["merchantName"],
   );
@@ -60,8 +60,8 @@ class Data {
   };
 }
 
-class Wallet {
-  Wallet({
+class WalletData {
+  WalletData({
     required  this.accountNo,
     required  this.acctName,
     required  this.clrBalAmt,
@@ -75,7 +75,7 @@ class Wallet {
   bool walletDefault;
   String acctCrncyCode;
 
-  factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
+  factory WalletData.fromJson(Map<String, dynamic> json) => WalletData(
     accountNo: json["accountNo"],
     acctName: json["acct_name"],
     clrBalAmt: json["clr_bal_amt"].toDouble(),

@@ -17,7 +17,7 @@ final String baseUrl;
   var client = http.Client();
 
   TransactionService(this.baseUrl);
-
+ Duration timeLimit = const Duration(seconds: 20);
   Future<Map?> startTransaction(Charge charge) async {
     try {
       var map = jsonEncode(charge.toJson());
@@ -25,7 +25,7 @@ final String baseUrl;
           body: map,
           headers: {
         "Content-type": "application/json",
-      });
+      }).timeout(timeLimit);
       var data = jsonDecode(response.body);
      if(response.statusCode==200){
        return data;
@@ -56,7 +56,7 @@ final String baseUrl;
           body: map,
           headers: {
             "Content-type": "application/json",
-          });
+          }).timeout(timeLimit);
       var data = jsonDecode(response.body);
       if(response.statusCode==200){
         return data['data'];
@@ -82,7 +82,7 @@ final String baseUrl;
           body: map,
           headers: {
             "Content-type": "application/json",
-          });
+          }).timeout(timeLimit);
       var data = jsonDecode(response.body);
       if(response.statusCode==200){
 
@@ -111,7 +111,7 @@ final String baseUrl;
           body: map,
           headers: {
             "Content-type": "application/json",
-          });
+          }).timeout(timeLimit);
       var data = jsonDecode(response.body);
       if(response.statusCode==200){
 
@@ -161,7 +161,7 @@ final String baseUrl;
           body: map,
           headers: {
             "Content-type": "application/json",
-          });
+          }).timeout(timeLimit);
       var data = jsonDecode(response.body);
       if(response.statusCode==200){
         return data;
@@ -184,7 +184,7 @@ final String baseUrl;
       var response = await client.get(Uri.parse("${baseUrl+Strings.ussdTransactionStatusUrl}/$tranID"),
           headers: {
             "Content-type": "application/json",
-          });
+          }).timeout(timeLimit);
       var data = jsonDecode(response.body);
       if(response.statusCode==200){
         return TransactionStatus(
@@ -225,7 +225,7 @@ final String baseUrl;
           body: map,
           headers: {
             "Content-type": "application/json",
-          });
+          }).timeout(timeLimit);
       var data = jsonDecode(response.body);
       if(response.statusCode==200){
 
@@ -249,7 +249,7 @@ final String baseUrl;
       var response = await client.get(Uri.parse("${baseUrl+Strings.transactionStatusUrl}/$tranID"),
           headers: {
             "Content-type": "application/json",
-          });
+          }).timeout(timeLimit);
       var data = jsonDecode(response.body);
       if(response.statusCode==200){
         return TransactionStatus(
@@ -287,10 +287,9 @@ Future<Map?> loginToWallet(String email,String password) async {
         body: map,
         headers: {
           "Content-type": "application/json",
-        });
+        }).timeout(timeLimit);
     var data = jsonDecode(response.body);
-    if(response.statusCode==200){
-
+    if(response.statusCode==201){
       return data;
     }
   } on SocketException catch (_) {
@@ -307,7 +306,7 @@ Future<Map?> loginToWallet(String email,String password) async {
 
 
 
-Future<TransactionStatus> makePaymentToWallet(String acctNumber,String pin,String tranRef,String device) async {
+Future<TransactionStatus> makePaymentToWallet(String acctNumber,String pin,String tranRef,String device,String token) async {
   try {
     var map = jsonEncode({
       "accountNo": acctNumber,
@@ -315,10 +314,11 @@ Future<TransactionStatus> makePaymentToWallet(String acctNumber,String pin,Strin
       "refNo": tranRef,
       "deviceInformation":device
     });
-    var response = await client.post(Uri.parse(baseUrl+Strings.loginToWallet),
+    var response = await client.post(Uri.parse(baseUrl+Strings.makePaymentToWallet),
         body: map,
         headers: {
           "Content-type": "application/json",
+          "authorization": token,
         });
     var data = jsonDecode(response.body);
      return TransactionStatus(
