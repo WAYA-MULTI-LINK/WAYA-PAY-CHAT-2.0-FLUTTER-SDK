@@ -41,5 +41,6 @@ class Strings {
 //wallet payment
   static const String loginToWallet = 'payment-gateway/api/v1/authentication/wallet';
   static const String makePaymentToWallet = 'payment-gateway/api/v1/wallet/payment';
+  static const String getQrcode = 'payment-gateway/api/v1/generate/qr-code';
 
 }

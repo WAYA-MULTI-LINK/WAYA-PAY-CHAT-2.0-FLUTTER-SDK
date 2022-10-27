@@ -338,6 +338,35 @@ Future<TransactionStatus> makePaymentToWallet(String acctNumber,String pin,Strin
 }
 
 
+Future<Map?> getQrCode(String tranId) async {
+  try {
+    var map = jsonEncode(
+        {
+          "qrExpiryDate": DateTime.now().add(const Duration(seconds:120 )).toIso8601String(),
+          "refNo": tranId
+        }
+    );
+    var response = await client.post(Uri.parse(baseUrl+Strings.getQrcode),
+        body: map,
+        headers: {
+          "Content-type": "application/json",
+        }).timeout(timeLimit);
+    var data = jsonDecode(response.body);
+    if(response.statusCode==201){
+      return data;
+    }
+  } on SocketException catch (_) {
+    throw Failure("No internet connection");
+  } on HttpException catch (_) {
+    throw Failure("Service not currently available");
+  } on TimeoutException catch (_) {
+    throw Failure("Poor internet connection");
+  } catch (e) {
+    throw Failure("Something went wrong. Try again");
+  }
+  return null;
+}
+
 
 }
 

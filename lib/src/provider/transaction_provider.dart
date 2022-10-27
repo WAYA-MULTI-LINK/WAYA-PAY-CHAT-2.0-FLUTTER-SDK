@@ -7,6 +7,7 @@ import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/models/customer.dart';
 import 'package:wayapay/src/models/encrpt.dart';
 import 'package:wayapay/src/models/htm_data.dart';
+import 'package:wayapay/src/models/qr_code_data.dart';
 import 'package:wayapay/src/models/traansaction_status.dart';
 import 'package:wayapay/src/models/user_data.dart';
 import 'package:wayapay/src/models/ussd_model.dart';
@@ -268,6 +269,23 @@ Future<TransactionStatus?> payToWallet(String acctNumber,String pin,String token
   }
   return null;
 
+
+
+}
+
+
+Future<QrCodeData?> getQrCode()async{
+  try{
+    setState(AppState.busy);
+    var data = await transactionService.getQrCode(customerCharge!.data.tranId);
+    setState(AppState.idle);
+    if(data!=null){
+      return QrCodeData.fromJson(data);
+    }
+  }catch(e){
+    setState(AppState.idle);
+  }
+  return null;
 
 
 }
