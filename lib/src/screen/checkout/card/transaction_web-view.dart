@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wayapay/src/alert/alert.dart';
 import 'package:wayapay/src/models/htm_data.dart';
 import 'package:wayapay/src/provider/transaction_provider.dart';
+import 'package:wayapay/src/screen/checkout/card/web_background.dart';
 import 'package:wayapay/src/widget/appbar.dart';
 
 class CardWebView extends StatefulWidget {
@@ -36,9 +37,11 @@ class _CardWebViewState extends State<CardWebView> {
 
   var wayaPay = "pay.wayapay.ng";
   bool hasOpen = false;
+  int index =0;
   @override
   Widget build(BuildContext context) {
     var model = context.watch<TransactionProvider>();
+    print(widget.htmlData.data.callbackUrl);
     return Scaffold(
       appBar: appBar(context),
       floatingActionButton: FloatingActionButton(
@@ -46,52 +49,60 @@ class _CardWebViewState extends State<CardWebView> {
         check(model, context);
         },
       ),
-      body:InAppWebView(
-        initialUrlRequest: URLRequest(url:Uri.parse(widget.htmlData.data.callbackUrl) ),
-        onUpdateVisitedHistory: (a,b,c){
-         if(b!=null){
-           var uri = b!;
-           var link = uri.host+uri.path+uri.fragment;
-           print('lol');
-           print(link);
+      body:IndexedStack(
+        index: index,
+        children: [
+          const WebBackGround(),
+          InAppWebView(
+            initialUrlRequest: URLRequest(url:Uri.parse(widget.htmlData.data.callbackUrl) ),
+            onUpdateVisitedHistory: (a,b,c){
+             if(b!=null){
+               var uri = b!;
+               var link = uri.host+uri.path+uri.fragment;
+               print('lol');
+               print(link);
 
-         }
-         },
-        key: webViewKey,
-        initialOptions:options,
-        onReceivedServerTrustAuthRequest: (controller, challenge) async {
-          return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
-        },
-        onWebViewCreated: (controller) {
-          webViewController = controller;
-          },
-        onLoadStart: (controller,b){
-          print('load');
-          if(b!=null){
-            var uri = b!;
-            var link = uri.host+uri.path+uri.fragment;
+             }
+             },
+            key: webViewKey,
+            initialOptions:options,
+            onReceivedServerTrustAuthRequest: (controller, challenge) async {
+              return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
+            },
+            onWebViewCreated: (controller) {
+              webViewController = controller;
+              },
+            onLoadStart: (controller,b){
+              if(b!=null){
+                var uri = b!;
+                var link = uri.host+uri.path+uri.fragment;
 
-          }
-        },
-        onLoadStop:(controller,b){
-          if(b!=null){
-            var uri = b!;
-            var link = uri.host+uri.path+uri.fragment;
-            print(link);
-            if(link.contains(wayaPay)&&hasOpen==false){
-              hasOpen=true;
-              check(model, context,);
-            }
+              }
+            },
+
+            onLoadStop:(controller,b){
+              if(b!=null){
+                var uri = b!;
+                var link = uri.host+uri.path+uri.fragment;
+                setState(() {
+                  index=1;
+                });
+                if(link.contains(wayaPay)&&hasOpen==false){
+                  hasOpen=true;
+                  check(model, context,);
+                }
 
 
-          }
-        },
-        androidOnPermissionRequest: (controller, origin, resources) async {
-          return PermissionRequestResponse(
-              resources: resources,
-              action: PermissionRequestResponseAction.GRANT);
-        },
+              }
+            },
+            androidOnPermissionRequest: (controller, origin, resources) async {
+              return PermissionRequestResponse(
+                  resources: resources,
+                  action: PermissionRequestResponseAction.GRANT);
+            },
 
+          ),
+        ],
       ),
     );
   }

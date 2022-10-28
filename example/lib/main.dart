@@ -147,8 +147,8 @@ class _HomeState extends State<Home> {
                                 description:"mobile payment",
                                 deviceInformation:jsonEncode({'phone':"iphone"}),
                                 customer: Customer(name: "chisom Eti", email: "chisometi@gmail.com", phoneNumber: "08103565207"),
-                                merchantId: 'MER_zENsE1659706838056n7nov',
-                                wayaPublicKey: "WAYAPUBK_TEST_0xe2e531008bdf43fd86e8a63bc1955700"
+                                merchantId: 'MER_3zUWo1656418606145pYewf',
+                                wayaPublicKey: "WAYAPUBK_PROD_0x271b51f9ec964a59a4438ddf2f71cea0"
                             );
                             _wayapayPlugin.checkout(context,charge);
 
