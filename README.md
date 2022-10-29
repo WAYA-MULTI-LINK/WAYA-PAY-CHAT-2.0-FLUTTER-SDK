@@ -27,6 +27,7 @@ To initialize the transaction, you'll need to pass information such as email, cu
 | mode      | `string`  |  `Debug`    | `true`   | Allowed values are `Debug` or `Live`.
 | customer      | `object`  |  `undefined`    | `true`   | this includes `name`(requred) , `email`(required) and `phoneNumber`(optional) of the customer.
 
+ """
  Charge charge = Charge(
                             amount: 200,
                             isTest: true,
@@ -40,6 +41,7 @@ To initialize the transaction, you'll need to pass information such as email, cu
                             merchantId: '<YOUR MAERCHANTID>',
                             wayaPublicKey: "<YOUR WAYAPAY>"
                         );
+ """
                         
                         
 #### Response from calling checkout function
