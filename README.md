@@ -27,7 +27,8 @@ To initialize the transaction, you'll need to pass information such as email, cu
 | mode      | `string`  |  `Debug`    | `true`   | Allowed values are `Debug` or `Live`.
 | customer      | `object`  |  `undefined`    | `true`   | this includes `name`(requred) , `email`(required) and `phoneNumber`(optional) of the customer.
 
- """
+
+ ```dart
  Charge charge = Charge(
                             amount: 200,
                             isTest: true,
@@ -35,13 +36,11 @@ To initialize the transaction, you'll need to pass information such as email, cu
                             customer: Customer(
                             name: "", 
                             email: "", 
-                            phoneNumber: ""
-                   
-                          ),
-                            merchantId: '<YOUR MAERCHANTID>',
-                            wayaPublicKey: "<YOUR WAYAPAY>"
+                            phoneNumber: "),
+                            merchantId: "",
+                            wayaPublicKey: ""
                         );
- """
+ ```
                         
                         
 #### Response from calling checkout function
