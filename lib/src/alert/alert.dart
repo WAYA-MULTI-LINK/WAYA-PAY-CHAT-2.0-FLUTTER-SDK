@@ -10,6 +10,7 @@ import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/models/customer.dart';
 import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/widget/button.dart';
+import 'package:wayapay/src/widget/cancel.dart';
 import 'package:wayapay/src/widget/loading.dart';
 import 'package:wayapay/src/widget/success.dart';
 
@@ -43,84 +44,16 @@ class Alerts {
   static void onPaymentCancel(BuildContext context, ) {
     var charge = context.watch<TransactionProvider>().charge;
     var customerCharge = context.watch<TransactionProvider>().customerCharge;
-    var alert = Alert(context: context);
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    alert = Alert(
-      context: context,
-      onWillPopActive: true,
-      useRootNavigator: true,
-      closeIcon: null,
-      closeFunction: null,
-      id: "PaymentCancel",
-      content: SizedBox(
-        width: width * 0.68,
-        height: height * 0.4,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/cancel_icon.png',
-              key: const Key("IssuerIcon"),
-              height: height * 0.17,
-              width: width * 0.17,
-              package: 'wayapay_flutter',
-            ),
-            Text(
-              "Payment in process.",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.dmSans(
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 28,
-                  )),
-            ),
-            SizedBox(
-              height: height * 0.01,
-            ),
-            Text(
-              "Are you sure you want to \n cancel this payment?",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.dmSans(
-                  textStyle: const TextStyle(
-                      fontWeight: FontWeight.w500, fontSize: 20)),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            AccentButton(
-                key: const Key("cancelButton"),
-                onPressed: () => {
-                  alert.dismiss(),
-                  Navigator.of(context).pop(),
-                  Navigator.of(context).pushNamed("/")
-                },
-                text: "Yes, Cancel the payment",
-                showProgress: false),
-            SizedBox(
-              height: height * 0.01,
-            ),
-            DialogButton(
-                key: const Key("continueButton"),
-                color: Colors.white,
-                border: Border.all(color: Colors.grey),
-                onPressed: () => {
-
-                },
-                child: Text("No, I want to continue",
-                    style: GoogleFonts.lato(
-                      color: Colors.grey,
-                      fontSize: (width * height) * 0.00004,
-                    ))),
-          ],
-        ),
-      ),
-      type: AlertType.none,
-      buttons: [],
-    );
-
-    alert.show();
+     showDialog(
+         context: context,
+         builder: (context){
+           return const SimpleDialog(
+             children: [
+               CanCelPayment()
+             ],
+           );
+         }
+     );
   }
 
   static void onSuccessAlert(BuildContext context) {

@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:wayapay/src/alert/alert.dart';
 import 'package:wayapay/src/models/qr_code_data.dart';
 import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/res/color.dart';
 import 'package:wayapay/src/screen/main_page/footer.dart';
 import 'package:wayapay/src/screen/main_page/top.dart';
 import 'package:wayapay/src/widget/appbar.dart';
+import 'package:wayapay/src/widget/button.dart';
 
 class QrCode extends StatefulWidget {
   const QrCode({Key? key}) : super(key: key);
@@ -60,9 +62,17 @@ class _QrCodeState extends State<QrCode> {
                       fontSize: 14,
                       fontWeight: FontWeight.w700)),
             ),
+            const SizedBox(height: 10,),
+            AccentButton(
+                key: const Key("paymentMadeButton"),
+                onPressed: () {
+                  check(model,context);
+                },
+                text: "I have made payment",
+                showProgress: false),
             const  Spacer(),
             const CheckoutFooter(),
-            const SizedBox(height: 20,),
+            const SizedBox(height: 10,),
           ],
         ),
       ),
@@ -118,4 +128,26 @@ Widget  image(Size size) {
       ),
     );
 }
+
+  check(TransactionProvider model, BuildContext context) async{
+    Alerts.onProcessingAlert(context,onLoading: (cxt){
+      model.checkStatus().then((value){
+        Navigator.pop(cxt);
+        Future.delayed(const Duration(milliseconds: 500),(){
+          // Alerts.onSuccessAlert(context);
+          if(value!=null){
+            if(value.success){
+              Alerts.onSuccessAlert(context);
+            }else{
+              Alerts.onPaymentFailed(context,message: value.message);
+            }
+          }
+        });
+
+      }).catchError((e){
+        Navigator.pop(cxt);
+      });
+    });
+
+  }
 }

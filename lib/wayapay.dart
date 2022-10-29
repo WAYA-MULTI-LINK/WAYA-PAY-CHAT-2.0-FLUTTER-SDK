@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:wayapay/src/common/my_strings.dart';
 import 'package:wayapay/src/models/charge.dart';
+import 'package:wayapay/src/models/traansaction_status.dart';
 import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/screen/main_page/payment_page.dart';
 import 'package:wayapay/src/service/transaction_service.dart';
@@ -14,9 +15,9 @@ import 'package:wayapay/src/utils/constants.dart';
 
 
 import 'wayapay_platform_interface.dart';
-
 export 'package:wayapay/src/models/charge.dart';
 export 'package:wayapay/src/widget/appbar.dart';
+
 class Wayapay {
 
   Future<String?> getPlatformVersion() {
@@ -24,7 +25,7 @@ class Wayapay {
   }
 
 
-   checkout(BuildContext cont,Charge charge)async{
+ Future<TransactionStatus?> checkout(BuildContext cont,Charge charge)async{
 
 
    var data = await Navigator.push(
@@ -36,7 +37,8 @@ class Wayapay {
           ),
           settings: const RouteSettings(name: 'wayapay',)),
     );
-   print(data);
+   return data;
+
   }
 
 
