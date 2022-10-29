@@ -27,38 +27,26 @@ To initialize the transaction, you'll need to pass information such as email, cu
 | mode      | `string`  |  `Debug`    | `true`   | Allowed values are `Debug` or `Live`.
 | customer      | `object`  |  `undefined`    | `true`   | this includes `name`(requred) , `email`(required) and `phoneNumber`(optional) of the customer.
 
-#### Response from calling InitializePayment function
-
+ Charge charge = Charge(
+                            amount: 200,
+                            isTest: true,
+                            description:"mobile payment",
+                            customer: Customer(
+                            name: "", 
+                            email: "", 
+                            phoneNumber: ""
+                   
+                          ),
+                            merchantId: '<YOUR MAERCHANTID>',
+                            wayaPublicKey: "<YOUR WAYAPAY>"
+                        );
+                        
+                        
+#### Response from calling checkout function
 |Param       | Type                 | Description                      
 | :------------ | :------------------- | :-------------------------------------------------
 | success	| `boolean`			 | Shows whether the intialise payment function call was successful or not
 | message | `string`  | description of the response data
-| data | `object`          | it includes `authorizeUrl` which is the url that you will use to redirect your customers to make payment, 
-`transactionId`,  `customerName` and `customerAvoid`.
 
 
-#### Request for calling VerifyPayment function.
-
-To verify payment, you'll need to pass information such as publicKey, transactionId and mode are required. Here is the full list of parameters you can pass:
-|Param       | Type                 | Default    | Required | Description                      
-| :------------ | :------------------- | :--------- | :------- | :-------------------------------------------------
-| transactionId      | `string`             | undefined   | `true`  | Unique case sensitive transaction identification
-
-#### Response from calling VerifyPayment function
-|Param       | Type                 | Description                      
-| :------------ | :------------------- | :-------------------------------------------------
-| success	| `boolean`			 | Shows whether the intialise payment function call was successful or not
-| message | `string`  | description of the response data
-
-#### data object
-|Param       | Type                 | Description    
-| :------------ | :------------------- | :-------------------------------------------------
-| Amount | `string`  | amount debited from customer
-| Description | `string`  | description of the transaction
-| Currency | `string`  | amounnt currency
-| Status | `string`  | PENDING, SUCCESSFUL, FAILED
-| productName | `string`  | name of product rendered to customer
-| businessName | `string`  | name of merchant business
-| Fee | `string`  | conveniency fee
-| customer | `object`  | customer details
 
