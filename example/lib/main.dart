@@ -112,11 +112,10 @@ class _HomeState extends State<Home> {
                     ),
                     onPressed: () {
                       if (key.currentState!.validate()) {
-                        var charge = Charge(
+                       Charge charge = Charge(
                             amount: int.parse(controller.text),
                             isTest: false,
                             description:"mobile payment",
-                            deviceInformation:jsonEncode({'phone':"iphone"}),
                             customer: Customer(name: "chisom Eti", email: emailController.text, phoneNumber: "08103565207"),
                             merchantId: 'MER_3zUWo1656418606145pYewf',
                             wayaPublicKey: "WAYAPUBK_PROD_0x271b51f9ec964a59a4438ddf2f71cea0"

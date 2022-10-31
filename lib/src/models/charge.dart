@@ -14,7 +14,7 @@ class Charge {
     required this.description,
    this.currency = "566",
     this.fee = 0,
-    required this.deviceInformation,
+     this.deviceInformation,
     required this.customer,
     required this.merchantId,
     required this.wayaPublicKey,
@@ -26,7 +26,7 @@ class Charge {
   String currency;
   int fee;
   bool isTest;
-  String deviceInformation;
+  String? deviceInformation;
   Customer customer;
   String merchantId;
   String wayaPublicKey;
