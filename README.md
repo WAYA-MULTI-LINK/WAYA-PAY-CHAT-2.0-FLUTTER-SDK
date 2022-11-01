@@ -2,10 +2,10 @@ This is a flutter sdk for implementing WayaPay payment gateway
 
 ## Get Started
 
-This Javascript library provides a wrapper to implement WayaPay Payment to your application via CDN
+This flutter sdk provides a wrapper to implement WayaPay Payment to your application
 ### Usage
 
-This library can be implemented into your application via CDN using Javascript or JQuery
+This sdk can be implemented into your application 
 
 ### Script Source
 #### Production : 
@@ -24,40 +24,39 @@ To initialize the transaction, you'll need to pass information such as email, cu
 | wayaPublicKey       | `string`        | undefined | `true`  | Your public key from wayaPay.
 | currency      | `number`  |  `NGN`    | `false`   | Currency charge should be performed in. Allowed only `566`.
 | merchantId      | `string`  |  undefined    | `true`   | merchant unique identification.
-| mode      | `string`  |  `Debug`    | `true`   | Allowed values are `Debug` or `Live`.
+| mode      | `bool`  |  `true`    | `true`   | Allowed values are `Debug` or `Live`.
 | customer      | `object`  |  `undefined`    | `true`   | this includes `name`(requred) , `email`(required) and `phoneNumber`(optional) of the customer.
 
 
  ```dart
+ import 'package:wayapay/wayapay.dart';
+ 
+  final _wayapayPlugin = Wayapay();
  Charge charge = Charge(
                             amount: 200,
                             isTest: true,
                             description:"mobile payment",
                             customer: Customer(
-                            name: "", 
-                            email: "", 
-                            phoneNumber: "),
-                            merchantId: "",
-                            wayaPublicKey: ""
+                            name: "peter", 
+                            email: "peter@gmail.com", 
+                            phoneNumber: "08103565208"),
+                            merchantId: "<YOUR MERCHANID>",
+                            wayaPublicKey:"<YOUR WAYAPUBLICKEY>"
                         );
+    TransactionStatus? transactionStatus = await _wayapayPlugin.checkout(context,charge);
  ```
  
- 1.  **Checkout**: This is the easy way; as the plugin handles all the
+ 1.  **Checkout**: This is the easy way, as the plugin handles all the
     processes involved in making a payment .
     
-  ```dart
-   final _wayapayPlugin = Wayapay();
-   TransactionStatus? transactionStatus = await _wayapayPlugin.checkout(context,charge);
- ```
- 
                         
                         
-#### Response from calling checkout function
+#### Response from calling checkout function "TransactionStatus"
 |Param       | Type                 | Description                      
 | :------------ | :------------------- | :-------------------------------------------------
 | success	| `boolean`			 | Shows whether the intialise payment function call was successful or not
 | message | `string`  | description of the response data
-| transactionId | 'str
+| transactionId | 'string'| transactionId of the transaction
 
 
 
