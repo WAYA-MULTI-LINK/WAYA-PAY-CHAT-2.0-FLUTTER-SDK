@@ -44,11 +44,11 @@ class _CardWebViewState extends State<CardWebView> {
     print(widget.htmlData.data.callbackUrl);
     return Scaffold(
       appBar: appBar(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-        check(model, context);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: (){
+      //   check(model, context);
+      //   },
+      // ),
       body:IndexedStack(
         index: index,
         children: [
@@ -59,9 +59,6 @@ class _CardWebViewState extends State<CardWebView> {
              if(b!=null){
                var uri = b!;
                var link = uri.host+uri.path+uri.fragment;
-               print('lol');
-               print(link);
-
              }
              },
             key: webViewKey,
@@ -88,7 +85,11 @@ class _CardWebViewState extends State<CardWebView> {
                   index=1;
                 });
                 if(link.contains(wayaPay)&&hasOpen==false){
-                  hasOpen=true;
+
+                  Future.delayed(Duration(seconds: 3),(){
+                    hasOpen=true;
+                  });
+
                   check(model, context,);
                 }
 

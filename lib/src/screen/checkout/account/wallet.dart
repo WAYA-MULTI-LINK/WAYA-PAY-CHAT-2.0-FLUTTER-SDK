@@ -48,7 +48,7 @@ class _WalletState extends State<Wallet> {
                 package: 'wayapay',
               ),
               Text(
-                'You are about send money to ${customer.name} for the Wayapay',
+                'You are about send money to ${customer.name} for ${model.charge.description}',
                 style: GoogleFonts.dmSans(
                   textStyle: const TextStyle(
                     fontWeight: FontWeight.w500,
@@ -193,7 +193,7 @@ class _WalletState extends State<Wallet> {
                 }
 
                 },
-                text: "Log in",
+                text: "Pay Now",
                 //showProgress: _validated
               ),
               SizedBox(height: height*0.045,),

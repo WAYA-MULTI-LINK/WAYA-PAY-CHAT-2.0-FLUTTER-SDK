@@ -23,6 +23,7 @@ dependencies:
   rflutter_alert: ^2.0.4
   animated_rotating_widget: ^0.0.2
   fluttertoast: ^8.1.1
+  custom_timer: ^0.1.2
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2

@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:svg_icon/svg_icon.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:wayapay/src/alert/alert.dart';
 import 'package:wayapay/src/models/bottom_nav_model.dart';
 import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/provider/transaction_provider.dart';
+import 'package:wayapay/src/res/color.dart';
 import 'package:wayapay/src/res/text.dart';
 import 'package:wayapay/src/screen/checkout/account/account.dart';
 import 'package:wayapay/src/screen/checkout/pay_attitude/pay_attitude.dart';
@@ -35,12 +38,13 @@ class _PaymentPageState extends State<PaymentPage> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    var model = context.watch<TransactionProvider>();
     return WillPopScope(
       onWillPop: ()async{
         Alerts.onPaymentCancel(context);
         return true;
       },
-      child: GestureDetector(
+      child:GestureDetector(
         onTap: (){
           FocusScope.of(context).unfocus();
         },
@@ -59,7 +63,17 @@ class _PaymentPageState extends State<PaymentPage> {
        //   },
        // ),
          appBar: appBar(context),
-          body: SingleChildScrollView(
+          body:model.customerCharge==null?Center(
+            child: SizedBox(
+              height: 104,
+              width: 104,
+              child: CircularProgressIndicator(
+                strokeWidth: 10,
+                backgroundColor: Colors.grey[100],
+                valueColor: const AlwaysStoppedAnimation(AppColor.mainColor),
+              ),
+            ),
+          ): SingleChildScrollView(
             child: Column(
               children: [
                 const SizedBox(height: 25,),
@@ -100,7 +114,23 @@ class _PaymentPageState extends State<PaymentPage> {
 
   void startTransaction() {
     var model = context.read<TransactionProvider>();
-    model.startTransaction();
+    model.startTransaction().then((value){
+      if(value!=null){
+      }else{
+        var model = context.read<TransactionProvider>();
+        showTopSnackBar(
+          context,
+          const CustomSnackBar.error(
+            message:
+            "Invalid profile/ api key",
+          ),
+        );
+    Future.delayed(const Duration(seconds:2),(){
+      Navigator.pop(model.mainContext);
+    });
+
+      }
+    });
     model.getBanks();
   }
 

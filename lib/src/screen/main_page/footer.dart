@@ -21,7 +21,7 @@ class CheckoutFooter extends StatelessWidget {
         Padding(  padding: EdgeInsets.fromLTRB(width * 0.029, 0, width * 0.029, 0),),
         Text("Payment Secured By " ,
             style: TextStyle( fontSize: (height * width) * 0.000033,fontFamily: "DM Sans", fontWeight:FontWeight.w400)),
-        Text("Wayapaychat" ,
+        Text("WayaQuick" ,
             style: TextStyle( fontSize: (height * width) * 0.000033,fontFamily: "DM Sans", fontWeight:FontWeight.w700))
       ],
 

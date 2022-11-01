@@ -19,10 +19,10 @@ class WebBackGround extends StatelessWidget {
           "WAYAQUICK AUTHORIZATION" ,
           textAlign: TextAlign.center,
           style: GoogleFonts.dmSans(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 color: AppColor.mainColor,
                   fontWeight: FontWeight.w700,
-                  fontSize: (width * height) * 0.00004)),
+                  fontSize:22)),
         ),
         const SizedBox(height: 10,),
         Text(

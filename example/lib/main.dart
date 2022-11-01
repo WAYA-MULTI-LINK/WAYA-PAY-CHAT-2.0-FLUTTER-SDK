@@ -116,11 +116,12 @@ class _HomeState extends State<Home> {
                             amount: int.parse(controller.text),
                             isTest: false,
                             description:"mobile payment",
-                            customer: Customer(name: "chisom Eti", email: emailController.text, phoneNumber: "08103565207"),
-                            merchantId: 'MER_3zUWo1656418606145pYewf',
-                            wayaPublicKey: "WAYAPUBK_PROD_0x271b51f9ec964a59a4438ddf2f71cea0"
+                            customer: Customer(name: "chisom Eti", email: 'chisometi@gmail.com', phoneNumber: "08103565207"),
+                            merchantId: 'MER_zENsE1659706838056n7nov',
+                            wayaPublicKey: "WAYAPUBK_PROD_0xfd77713593144c32af12e884646351c5"
                         );
-                        _wayapayPlugin.checkout(context,charge);
+                       _wayapayPlugin.checkout(context,charge).then((value){
+                       });
 
                       } else {
                         debugPrint('invalid!');

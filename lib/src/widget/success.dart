@@ -26,6 +26,7 @@ class _SuccessTransactionState extends State<SuccessTransaction> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    print(widget.customerCharge.data.tranId);
     return WillPopScope(
       onWillPop: ()async{
         pop();

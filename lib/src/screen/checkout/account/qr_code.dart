@@ -11,6 +11,7 @@ import 'package:wayapay/src/screen/main_page/footer.dart';
 import 'package:wayapay/src/screen/main_page/top.dart';
 import 'package:wayapay/src/widget/appbar.dart';
 import 'package:wayapay/src/widget/button.dart';
+import 'package:wayapay/src/widget/timer.dart';
 
 class QrCode extends StatefulWidget {
   const QrCode({Key? key}) : super(key: key);
@@ -54,13 +55,10 @@ class _QrCodeState extends State<QrCode> {
              ),
            ):image(size),
             SizedBox(height: size.height*0.07,),
-            qrCodeData==null?const SizedBox():Text(
-              "You have 60 seconds left",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.dmSans(
-                  textStyle: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700)),
+            qrCodeData==null?const SizedBox():OtpTimer(
+                onTap: (){
+                  Navigator.pop(context);
+                }
             ),
             const SizedBox(height: 10,),
             AccentButton(

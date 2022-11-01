@@ -37,6 +37,7 @@ final BuildContext mainContext;
       setState(AppState.idle);
       if(data!=null){
       customerCharge = CustomerCharge.fromJson(data);
+      return customerCharge;
       notifyListeners();
       }
     }catch(e){
@@ -55,6 +56,7 @@ Future<String?> encryptCard(String cardNo)async{
     return data;
   }catch(e){
     setState(AppState.idle);
+
     Fluttertoast.showToast(msg: e.toString());
   }
   return null;
@@ -65,18 +67,17 @@ Future<String?> encryptCard(String cardNo)async{
 Future<Encrypt?> processCardPayment(PaymentCard paymentCard,String encryptData,String pin)async{
   try{
     setState(AppState.busy);
-    var data = await transactionService.cardPayment(
-      CardProcessData(
-          cardholder: "",
-          encryptCardNo: encryptData,
-          expiry: "${add(paymentCard.expiryMonth!)}${paymentCard.expiryMonth}/${paymentCard.expiryYear}",
-          mobile:charge.customer.phoneNumber ,
-          pin:pin ,
-          deviceInformation: deviceInfo,
-          tranId: customerCharge!.data.tranId,
-          scheme: paymentCard.type??"",
-          wayaPublicKey: charge.wayaPublicKey).toJson()
-    );
+    var cardData = CardProcessData(
+        cardholder: "",
+        encryptCardNo: encryptData,
+        expiry: "${add(paymentCard.expiryMonth!)}${paymentCard.expiryMonth}/${paymentCard.expiryYear}",
+        mobile:charge.customer.phoneNumber ,
+        pin:pin ,
+        deviceInformation: deviceInfo,
+        tranId: customerCharge!.data.tranId,
+        scheme: paymentCard.type??"",
+        wayaPublicKey: charge.wayaPublicKey).toJson();
+    var data = await transactionService.cardPayment(cardData);
     setState(AppState.idle);
     if(data!=null){
       var encrypt = Encrypt.fromJson(data);
@@ -84,6 +85,7 @@ Future<Encrypt?> processCardPayment(PaymentCard paymentCard,String encryptData,S
     }
   }catch(e){
     setState(AppState.idle);
+
     Fluttertoast.showToast(msg: e.toString());
   }
   return null;
@@ -93,18 +95,17 @@ Future<Encrypt?> processCardPayment(PaymentCard paymentCard,String encryptData,S
 Future<Encrypt?> payAttitudePayment(String phone)async{
   try{
     setState(AppState.busy);
-    var data = await transactionService.cardPayment(
-        CardProcessData(
-            cardholder: "",
-            encryptCardNo: "",
-            expiry: "",
-            mobile:phone ,
-            pin:"" ,
-            deviceInformation: deviceInfo,
-            tranId: customerCharge!.data.tranId,
-            scheme: "payattitude",
-            wayaPublicKey: charge.wayaPublicKey).toJson()
-    );
+    var cardData = CardProcessData(
+        cardholder: "",
+        encryptCardNo: "",
+        expiry: "",
+        mobile:phone ,
+        pin:"" ,
+        deviceInformation: deviceInfo,
+        tranId: customerCharge!.data.tranId,
+        scheme: "payattitude",
+        wayaPublicKey: charge.wayaPublicKey).toJson();
+    var data = await transactionService.cardPayment(cardData);
     setState(AppState.idle);
     if(data!=null){
       var encrypt = Encrypt.fromJson(data);
