@@ -110,7 +110,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async{
                       if (key.currentState!.validate()) {
                        Charge charge = Charge(
                             amount: int.parse(controller.text),
@@ -120,8 +120,8 @@ class _HomeState extends State<Home> {
                             merchantId: 'MER_zENsE1659706838056n7nov',
                             wayaPublicKey: "WAYAPUBK_PROD_0xfd77713593144c32af12e884646351c5"
                         );
-                       _wayapayPlugin.checkout(context,charge).then((value){
-                       });
+                       TransactionStatus? transactionStatus = await _wayapayPlugin.checkout(context,charge);
+
 
                       } else {
                         debugPrint('invalid!');

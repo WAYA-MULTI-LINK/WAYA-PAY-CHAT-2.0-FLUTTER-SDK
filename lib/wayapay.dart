@@ -17,6 +17,7 @@ import 'package:wayapay/src/utils/constants.dart';
 import 'wayapay_platform_interface.dart';
 export 'package:wayapay/src/models/charge.dart';
 export 'package:wayapay/src/widget/appbar.dart';
+export 'package:wayapay/src/models/traansaction_status.dart';
 
 class Wayapay {
 

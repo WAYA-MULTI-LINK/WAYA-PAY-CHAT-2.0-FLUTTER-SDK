@@ -189,13 +189,13 @@ final String baseUrl;
       if(response.statusCode==200){
         return TransactionStatus(
             success: true,
-            id: "",
+            transactionId: "",
             message: data['data']??""
         );
       }else{
         return TransactionStatus(
             success: false,
-            id:"" ,
+            transactionId:"" ,
             message: data['details'].toString()??"something went wrong"
         );
       }
@@ -245,7 +245,6 @@ final String baseUrl;
 
 //
   Future<TransactionStatus?> transactionStatus(String  tranID) async {
-    print("${baseUrl+Strings.transactionStatusUrl}/$tranID");
     try {
       var response = await client.get(Uri.parse("${baseUrl+Strings.transactionStatusUrl}/$tranID"),
           headers: {
@@ -255,13 +254,13 @@ final String baseUrl;
       if(response.statusCode==200){
         return TransactionStatus(
             success: data['data']['Status']=="SUCCESSFUL"?true:false,
-            id: "",
+            transactionId: "",
             message: "Transaction ${data['data']['Status']??""}".toUpperCase()
         );
       }else{
         return TransactionStatus(
             success: false,
-            id:"" ,
+            transactionId:"" ,
             message: data['details'].toString()
         );
       }
@@ -325,7 +324,7 @@ Future<TransactionStatus> makePaymentToWallet(String acctNumber,String pin,Strin
      return TransactionStatus(
          success: data['status'],
          message: data['message'],
-         id: "");
+         transactionId: "");
   } on SocketException catch (_) {
     throw Failure("No internet connection");
   } on HttpException catch (_) {
