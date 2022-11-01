@@ -41,6 +41,15 @@ To initialize the transaction, you'll need to pass information such as email, cu
                             wayaPublicKey: ""
                         );
  ```
+ 
+ 1.  **Checkout**: This is the easy way; as the plugin handles all the
+    processes involved in making a payment .
+    
+  ```dart
+   final _wayapayPlugin = Wayapay();
+   TransactionStatus? transactionStatus = await _wayapayPlugin.checkout(context,charge);
+ ```
+ 
                         
                         
 #### Response from calling checkout function
@@ -48,6 +57,7 @@ To initialize the transaction, you'll need to pass information such as email, cu
 | :------------ | :------------------- | :-------------------------------------------------
 | success	| `boolean`			 | Shows whether the intialise payment function call was successful or not
 | message | `string`  | description of the response data
+| transactionId | 'str
 
 
 
