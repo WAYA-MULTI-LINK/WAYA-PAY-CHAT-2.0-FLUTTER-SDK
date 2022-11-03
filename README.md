@@ -14,7 +14,7 @@ This flutter sdk provides a wrapper to implement WayaPay Payment to your applica
 To initialize the transaction, you'll need to pass information such as email, customer object, amount,merchantId, wayaPublicKey, etc. Email and amount,merchantId,description, wayaPublicKey are required. You can also pass any other additional information in the metadata object field. Here is the full list of parameters you can pass:
 |Param       | Type                 | Default    | Required | Description                      
 | :------------ | :------------------- | :--------- | :------- | :-------------------------------------------------
-| amount	| `string`			   | undefined      | `true`  | Amount you want to debit customer e.g 1000.00, 10.00...
+| amount	| `int`			   | undefined      | `true`  | Amount you want to debit customer e.g 1000.00, 10.00...
 | description      | `string`             | undefined   | `true`  | description of the transaction
 | email | `string`             | undefined       | `true`  | Email address of customer
 | wayaPublicKey       | `string`        | undefined | `true`  | Your public key from wayaPay.
@@ -63,7 +63,7 @@ To initialize the transaction, you'll need to pass information such as email, cu
 
 #### Note
 
-- `TransactionStatus` can be null, depending on if the user cancels the transaction by pressing back.
+- `TransactionStatus` can be null, depending on if the user cancels the transaction by pressing back button.
 - You need to confirm the transaction is successful. Ensure that the txRef, amount, and status are correct and successful. Be sure to 
 - (https://services.wayapay.ng/payment-gateway/api/v1/reference/query/"$transactionID") before providing value.
 
