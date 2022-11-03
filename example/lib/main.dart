@@ -111,14 +111,15 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     onPressed: () async{
+                      //WAYAPUBK_TEST_0xe2e531008bdf43fd86e8a63bc1955700  "WAYAPUBK_PROD_0xfd77713593144c32af12e884646351c5
                       if (key.currentState!.validate()) {
                        Charge charge = Charge(
                             amount: int.parse(controller.text),
-                            isTest: false,
+                            isTest: true,
                             description:"mobile payment",
                             customer: Customer(name: "chisom Eti", email: 'chisometi@gmail.com', phoneNumber: "08103565207"),
-                            merchantId: 'MER_zENsE1659706838056n7nov',
-                            wayaPublicKey: "WAYAPUBK_PROD_0xfd77713593144c32af12e884646351c5"
+                            merchantId: 'MER_qZaVZ1645265780823HOaZW',
+                            wayaPublicKey: "WAYAPUBK_TEST_0x3442f06c8fa6454e90c5b1a518758c70"
                         );
                        TransactionStatus? transactionStatus = await _wayapayPlugin.checkout(context,charge);
 
