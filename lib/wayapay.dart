@@ -61,7 +61,7 @@ class App extends StatelessWidget {
           ),
         mainContext
       ),
-      child: GetMaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         //routeInformationParser: const MyRouteInformationParser(),
         home: PaymentPage(
