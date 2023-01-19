@@ -53,7 +53,7 @@ class _QrCodeState extends State<QrCode> {
                backgroundColor: Colors.grey[100],
                valueColor: const AlwaysStoppedAnimation(AppColor.mainColor),
              ),
-           ):image(size),
+           ):image(),
             SizedBox(height: size.height*0.07,),
             qrCodeData==null?const SizedBox():OtpTimer(
                 onTap: (){
@@ -98,7 +98,7 @@ class _QrCodeState extends State<QrCode> {
     });
   }
 
-Widget  image(Size size) {
+Widget  image() {
   var images = base64Decode(qrCodeData!.data.body);
     return Container(
       decoration: BoxDecoration(
