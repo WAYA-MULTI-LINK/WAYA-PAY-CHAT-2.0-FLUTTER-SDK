@@ -99,6 +99,7 @@ class WalletPin extends StatelessWidget {
             }else{
               Alerts.onPaymentFailed(context,message: value.message);
             }
+            // Navigator.pop(cxt);
           }
         });
 

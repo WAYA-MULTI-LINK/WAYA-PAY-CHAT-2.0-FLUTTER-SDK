@@ -118,10 +118,14 @@ class _HomeState extends State<Home> {
                             isTest: true,
                             description:"mobile payment",
                             customer: Customer(name: "chisom Eti", email: 'chisometi@gmail.com', phoneNumber: "08103565207"),
-                            merchantId: 'MER_qZaVZ1645265780823HOaZW',
-                            wayaPublicKey: "WAYAPUBK_TEST_0x3442f06c8fa6454e90c5b1a518758c70"
+                            merchantId: 'MER_zZVse1693209623099nakvz',
+                            wayaPublicKey: "WAYAPUBK_TEST_0xaa4f6c91289246bda4490b2fc5b393ef"
                         );
                        TransactionStatus? transactionStatus = await _wayapayPlugin.checkout(context,charge);
+                       if(transactionStatus != null && transactionStatus.success){
+                        print('payment succesful');
+
+                       }
 
 
                       } else {

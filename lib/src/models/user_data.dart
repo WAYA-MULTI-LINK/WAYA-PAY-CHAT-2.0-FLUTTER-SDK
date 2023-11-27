@@ -16,7 +16,7 @@ class UserData {
     required this.data,
   });
 
-  int timeStamp;
+  String timeStamp;
   bool status;
   String message;
   Data data;
@@ -66,14 +66,14 @@ class WalletData {
     required  this.acctName,
     required  this.clrBalAmt,
     required  this.walletDefault,
-    required  this.acctCrncyCode,
+     this.acctCrncyCode,
   });
 
   String accountNo;
   String acctName;
   double clrBalAmt;
   bool walletDefault;
-  String acctCrncyCode;
+  String? acctCrncyCode;
 
   factory WalletData.fromJson(Map<String, dynamic> json) => WalletData(
     accountNo: json["accountNo"],

@@ -103,6 +103,7 @@ class AuthenticateCard extends StatelessWidget {
     var encryptData = await model.encryptCard("${paymentCard.number}|${paymentCard.cvc}");
     if(encryptData!=null){
       var encrpt = await model.processCardPayment(paymentCard, encryptData, pin);
+      print('encrpyt is $encrpt');
 
      if(encrpt!=null){
        var html = await model.processCard(encrpt!.body.data,model.customerCharge!.data.tranId);

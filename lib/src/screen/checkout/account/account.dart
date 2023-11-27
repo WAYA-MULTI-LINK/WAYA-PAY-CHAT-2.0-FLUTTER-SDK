@@ -8,7 +8,7 @@ class AccountPayment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var text1 = 'Click here to login or register account with wayapaychat and complete payment';
+    var text1 = 'Click here to login to you wayabank account and complete payment';
     var text2 = 'Kindly click here to generate QR Code for your payment';
     return Padding(
       padding: const EdgeInsets.only(left:30,right: 30,top: 20,bottom: 20 ),
@@ -21,17 +21,18 @@ class AccountPayment extends StatelessWidget {
              'Login to Pay',
               text1,
               onTap: (){
+                
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>const Login()));
               }
           ),
           const SizedBox(height: 15,),
-          paymentMethod(
-              'Scan to Pay',
-              text2,
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const QrCode()));
-              }
-          ),
+          // paymentMethod(
+          //     'Scan to Pay',
+          //     text2,
+          //     onTap: (){
+          //       Navigator.push(context, MaterialPageRoute(builder: (context)=>const QrCode()));
+          //     }
+          // ),
 
         ],
       ),

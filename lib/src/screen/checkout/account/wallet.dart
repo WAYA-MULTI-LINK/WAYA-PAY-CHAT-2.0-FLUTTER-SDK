@@ -15,7 +15,7 @@ import 'package:wayapay/src/widget/button.dart';
 import 'package:wayapay/src/widget/dropdown.dart';
 
 class Wallet extends StatefulWidget {
- final UserData userData;
+  final UserData userData;
   const Wallet({Key? key, required this.userData}) : super(key: key);
 
   @override
@@ -35,11 +35,14 @@ class _WalletState extends State<Wallet> {
       appBar: appBar(context),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left:30,right: 30,top: 20,bottom: 20 ),
+          padding:
+              const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
           child: Column(
             children: [
               Row(),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Image.asset(
                 'assets/images/3ds.png',
                 key: const Key("IssuerIcon"),
@@ -49,6 +52,7 @@ class _WalletState extends State<Wallet> {
               ),
               Text(
                 'You are about send money to ${customer.name} for ${model.charge.description}',
+               
                 style: GoogleFonts.dmSans(
                   textStyle: const TextStyle(
                     fontWeight: FontWeight.w500,
@@ -57,71 +61,87 @@ class _WalletState extends State<Wallet> {
                 ),
                 textAlign: TextAlign.center,
               ),
-             const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Container(
-                decoration:  BoxDecoration(
-                  color:const Color.fromRGBO(224, 224, 224, 0.35),
-                    borderRadius: BorderRadius.circular(4)
-                ),
+                decoration: BoxDecoration(
+                    color: const Color.fromRGBO(224, 224, 224, 0.35),
+                    borderRadius: BorderRadius.circular(4)),
                 child: Padding(
                   padding: const EdgeInsets.all(13.0),
                   child: Column(
                     children: [
-                     row("Amount:",amount.toString().toCurrency()),
-                      const SizedBox(height: 7,),
-                      row("Fee:",0.toString().toCurrency()),
-                      const SizedBox(height: 7,),
-                      row("Total Amount:",amount.toString().toCurrency(),isBold: true),
+                      row("Amount:", amount.toString().toCurrency()),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      row("Fee:", 0.toString().toCurrency()),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      row("Total Amount:", amount.toString().toCurrency(),
+                          isBold: true),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 14,),
-             walletData==null?SizedBox() :Row(
-                children: [
-                  Container(
-                    decoration:  BoxDecoration(
-                        color: const Color.fromRGBO(255, 102, 52, 0.2),
-                       borderRadius: BorderRadius.circular(7)
-                    ),
-                    child:const Padding(
-                      padding:  EdgeInsets.all(13.0),
-                      child: Icon(Icons.account_balance_wallet,color: AppColor.mainColor,),
-                    ),
-                  ),
-                  const SizedBox(width: 5,),
-                  Text(
-                    'Wallet Balance',
-                    style: GoogleFonts.dmSans(
-                      textStyle: const TextStyle(
-                        fontWeight:FontWeight.w400,
-                        fontSize: 11,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    decoration:  BoxDecoration(
-                        color: const Color.fromRGBO(255, 102, 52, 0.2),
-                        borderRadius: BorderRadius.circular(5)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10,right: 10,bottom: 3,top: 5),
-                      child:Text(
-                        walletData!.clrBalAmt.toString().toCurrency(),
-                        style: GoogleFonts.dmSans(
-                          textStyle: const TextStyle(
-                            fontWeight:FontWeight.w700,
-                            color: AppColor.mainColor,
-                            fontSize: 11,
+              const SizedBox(
+                height: 14,
+              ),
+              walletData == null
+                  ? SizedBox()
+                  : Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(255, 102, 52, 0.2),
+                              borderRadius: BorderRadius.circular(7)),
+                          child: const Padding(
+                            padding: EdgeInsets.all(13.0),
+                            child: Icon(
+                              Icons.account_balance_wallet,
+                              color: AppColor.mainColor,
+                            ),
                           ),
                         ),
-                      ) ,
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'Wallet Balance',
+                          style: GoogleFonts.dmSans(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(255, 102, 52, 0.2),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, bottom: 3, top: 5),
+                            child: Text(
+                              walletData!.clrBalAmt.toString().toCurrency(),
+                              style: GoogleFonts.dmSans(
+                                textStyle: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColor.mainColor,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+              const SizedBox(
+                height: 30,
               ),
-              const SizedBox(height: 30,),
               CustomDropdown<WalletData>(
                 onChange: (value, index) {
                   setState(() {
@@ -140,11 +160,11 @@ class _WalletState extends State<Wallet> {
                   elevation: 6,
                   padding: const EdgeInsets.all(5),
                 ),
-                items: widget.userData.data.wallet.map((wallet ) {
+                items: widget.userData.data.wallet.map((wallet) {
                   return DropdownItem<WalletData>(
-                    value:wallet ,
+                    value: wallet,
                     child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(wallet.accountNo,
                             style: GoogleFonts.dmSans(
@@ -153,7 +173,9 @@ class _WalletState extends State<Wallet> {
                                   fontSize: (width * height) * 0.000038,
                                   color: Colors.black),
                             )),
-                        SizedBox(width: width*0.2,),
+                        SizedBox(
+                          width: width * 0.2,
+                        ),
                         Text(wallet.clrBalAmt.toString().toCurrency(),
                             style: GoogleFonts.dmSans(
                               textStyle: TextStyle(
@@ -174,29 +196,36 @@ class _WalletState extends State<Wallet> {
                   ),
                 ),
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               AccentButton(
                 key: const Key("PayButton"),
                 appState: model.appState,
-                onPressed: (){
-                if(walletData!=null){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context)=>WalletPin(walletData: walletData!,token: widget.userData.data.token,)));
-                }else{
-                  showTopSnackBar(
-                    context,
-                    const CustomSnackBar.error(
-                      message:
-                      "Select a wallet",
-                    ),
-                  );
-                }
-
+                onPressed: () {
+                  if (walletData != null) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WalletPin(
+                                  walletData: walletData!,
+                                  token: widget.userData.data.token,
+                                )));
+                  } else {
+                    showTopSnackBar(
+                      context,
+                      const CustomSnackBar.error(
+                        message: "Select a wallet",
+                      ),
+                    );
+                  }
                 },
                 text: "Pay Now",
                 //showProgress: _validated
               ),
-              SizedBox(height: height*0.045,),
+              SizedBox(
+                height: height * 0.045,
+              ),
               const CheckoutFooter(),
             ],
           ),
@@ -205,30 +234,29 @@ class _WalletState extends State<Wallet> {
     );
   }
 
- Widget row(String s, String t,{bool isBold = false}) {
-    return  Row(
+  Widget row(String s, String t, {bool isBold = false}) {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           s,
           style: GoogleFonts.dmSans(
-            textStyle:  TextStyle(
-              fontWeight:isBold?FontWeight.w700 :FontWeight.w400,
+            textStyle: TextStyle(
+              fontWeight: isBold ? FontWeight.w700 : FontWeight.w400,
               fontSize: 11,
             ),
           ),
         ),
-
         Text(
           t,
           style: GoogleFonts.dmSans(
-            textStyle:  TextStyle(
-              fontWeight:isBold?FontWeight.w700 :FontWeight.w400,
+            textStyle: TextStyle(
+              fontWeight: isBold ? FontWeight.w700 : FontWeight.w400,
               fontSize: 11,
             ),
           ),
         ),
       ],
     );
- }
+  }
 }

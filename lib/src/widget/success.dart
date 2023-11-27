@@ -125,7 +125,7 @@ class _SuccessTransactionState extends State<SuccessTransaction> {
     Navigator.pop(widget.mainContext,TransactionStatus(
         success: true,
         message: "success",
-       transactionId:widget.customerCharge!.data.tranId
+       transactionId:widget.customerCharge.data.tranId
     ));
   }
 }

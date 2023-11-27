@@ -59,7 +59,7 @@ class Alerts {
   static void onSuccessAlert(BuildContext context) {
     var charge = context.read<TransactionProvider>().charge;
     var mainContext = context.read<TransactionProvider>().mainContext;
-    var customerCharge = context.read<TransactionProvider>().customerCharge!;
+   var customerCharge = context.read<TransactionProvider>().customerCharge!;
    showDialog(context: context,
        builder: (context){
          return SimpleDialog(
