@@ -114,7 +114,7 @@ class _HomeState extends State<Home> {
                       //WAYAPUBK_TEST_0xe2e531008bdf43fd86e8a63bc1955700  "WAYAPUBK_PROD_0xfd77713593144c32af12e884646351c5
                       if (key.currentState!.validate()) {
                        Charge charge = Charge(
-                            amount: int.parse(controller.text),
+                            amount: double.parse(controller.text),
                             isTest: true,
                             description:"mobile payment",
                             customer: Customer(name: "chisom Eti", email: 'chisometi@gmail.com', phoneNumber: "08103565207"),

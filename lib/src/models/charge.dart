@@ -21,7 +21,7 @@ class Charge {
     required this.isTest
   });
 
-  int amount;
+  double amount;
   String description;
   String currency;
   int fee;
@@ -32,7 +32,7 @@ class Charge {
   String wayaPublicKey;
 
   Charge copyWith({
-    int? amount,
+    double? amount,
     String? description,
     String? currency,
     int? fee,
