@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wayapay/src/enum/app_state.dart';
+import 'package:wayapay/src/models/authorization_data.dart';
 import 'package:wayapay/src/models/bank_model.dart';
 import 'package:wayapay/src/models/card.dart';
 import 'package:wayapay/src/models/card_process_data.dart';
@@ -9,6 +10,7 @@ import 'package:wayapay/src/models/customer.dart';
 import 'package:wayapay/src/models/customer.dart' as customer;
 import 'package:wayapay/src/models/encrpt.dart';
 import 'package:wayapay/src/models/htm_data.dart';
+import 'package:wayapay/src/models/paymentData.dart';
 import 'package:wayapay/src/models/qr_code_data.dart';
 import 'package:wayapay/src/models/traansaction_status.dart';
 import 'package:wayapay/src/models/user_data.dart';
@@ -33,7 +35,7 @@ class TransactionProvider extends BaseViewModel {
   TransactionProvider(this.charge, this.transactionService, this.mainContext,
       this.transId, this.customerCharge);
 
- CustomerCharge? customerCharge;
+  CustomerCharge? customerCharge;
   List<Bank> banks = [];
 
   Future<CustomerCharge?> startTransaction() async {
@@ -69,27 +71,49 @@ class TransactionProvider extends BaseViewModel {
     return null;
   }
 
-  Future<Encrypt?> processCardPayment(
+  Future<PaymentData?> processCardPayment(
       PaymentCard paymentCard, String encryptData, String pin) async {
     try {
       setState(AppState.busy);
       var cardData = CardProcessData(
-        cardholder: "",
-        encryptCardNo: encryptData,
-        expiry:
-            "${add(paymentCard.expiryMonth!)}${paymentCard.expiryMonth}/${paymentCard.expiryYear}",
+        cardholder: charge.customer.name,
+        encryptCardNo: paymentCard.number!,
+        expiry: "${paymentCard.expiryYear}${add(paymentCard.expiryMonth!)}${paymentCard.expiryMonth}",
+        // "${add(paymentCard.expiryMonth!)}${paymentCard.expiryMonth}/${paymentCard.expiryYear}",
         mobile: charge.customer.phoneNumber,
         pin: pin,
+        securityCode: paymentCard.cvc!,
+        recurrent: false,
+        merchantId: charge.merchantId,
         deviceInformation: deviceInfo,
         tranId: customerCharge!.data.tranId,
         scheme: paymentCard.type ?? "",
         wayaPublicKey: charge.wayaPublicKey,
       ).toJson();
+
+      print('card data is $cardData');
       var data = await transactionService.cardPayment(cardData);
       setState(AppState.idle);
       if (data != null) {
-        var encrypt = Encrypt.fromJson(data);
+        var encrypt = PaymentData.fromJson(data);
         return encrypt;
+      }
+    } catch (e) {
+      setState(AppState.idle);
+      Fluttertoast.showToast(msg: e.toString());
+    }
+    return null;
+  }
+
+   Future<AuthorizationData?> authorizeCard(String pin, String tranId) async {
+    try {
+      setState(AppState.busy);
+      var data = await transactionService.authorizeCard(pin, tranId);
+      setState(AppState.idle);
+      if (data != null) {
+        // var html = HtmlData.fromJson(data);
+        var html = AuthorizationData.fromJson(data);
+        return html;
       }
     } catch (e) {
       setState(AppState.idle);
@@ -101,17 +125,18 @@ class TransactionProvider extends BaseViewModel {
   Future<Encrypt?> payAttitudePayment(String phone) async {
     try {
       setState(AppState.busy);
-      var cardData = CardProcessData(
-              cardholder: "",
-              encryptCardNo: "",
-              expiry: "",
-              mobile: phone,
-              pin: "",
-              deviceInformation: deviceInfo,
-              tranId: customerCharge!.data.tranId,
-              scheme: "payattitude",
-              wayaPublicKey: charge.wayaPublicKey)
-          .toJson();
+      var cardData;
+      //  = CardProcessData(
+      //         cardholder: "",
+      //         encryptCardNo: "",
+      //         expiry: "",
+      //         mobile: phone,
+      //         pin: "",
+      //         deviceInformation: deviceInfo,
+      //         tranId: customerCharge!.data.tranId,
+      //         scheme: "payattitude",
+      //         wayaPublicKey: charge.wayaPublicKey)
+      //     .toJson();
       var data = await transactionService.cardPayment(cardData);
       setState(AppState.idle);
       if (data != null) {
@@ -148,6 +173,24 @@ class TransactionProvider extends BaseViewModel {
       setState(AppState.idle);
       if (data != null) {
         var html = HtmlData.fromJson(data);
+        // var html = PaymentData.fromJson(data);
+        return html;
+      }
+    } catch (e) {
+      setState(AppState.idle);
+      Fluttertoast.showToast(msg: e.toString());
+    }
+    return null;
+  }
+
+    Future<AuthorizationData?> processPayment(String cardData, String tranId, String pin) async {
+    try {
+      setState(AppState.busy);
+      var data = await transactionService.processPayment(cardData, tranId, pin);
+      setState(AppState.idle);
+      if (data != null) {
+        var html = AuthorizationData?.fromJson(data);
+        // var html = PaymentData.fromJson(data);
         return html;
       }
     } catch (e) {
@@ -179,7 +222,7 @@ class TransactionProvider extends BaseViewModel {
     try {
       setState(AppState.busy);
       var payload = UssdPayload(
-          amount: charge.amount,
+          amount: charge.amount.toInt(),
           bankId: bankData.bankId,
           channel: channel,
           customerEmail: charge.customer.email,
