@@ -31,9 +31,10 @@ class TransactionService {
           headers: {
             "Content-type": "application/json",
           }).timeout(timeLimit);
-      print(baseUrl + Strings.transactionRequestUrl);
-      print(charge.toJson());
-      print(response.body);
+      // print(baseUrl + Strings.transactionRequestUrl);
+      // print(charge.toJson());
+      // print(response.body);
+      interceptResponse(response);
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         return data;
@@ -54,6 +55,7 @@ class TransactionService {
     try {
       var map =
           jsonEncode({"encryptString": text, "merchantPublicKey": sdkKey});
+          
       var response = await client.post(
           Uri.parse(baseUrl + Strings.cardEncriptionUrl),
           body: map,
@@ -61,6 +63,8 @@ class TransactionService {
             "Content-type": "application/json",
           }).timeout(timeLimit);
       var data = jsonDecode(response.body);
+      
+     interceptResponse(response);
       if (response.statusCode == 200) {
         return data['data'];
       }
@@ -87,6 +91,33 @@ class TransactionService {
           }).timeout(timeLimit);
       var data = jsonDecode(response.body);
       print("card data is $data");
+      interceptResponse(response);
+      if (response.statusCode == 200) {
+        return data;
+      }
+    } on SocketException catch (_) {
+      throw Failure("No internet connection");
+    } on HttpException catch (_) {
+      throw Failure("Service not currently available");
+    } on TimeoutException catch (_) {
+      throw Failure("Poor internet connection");
+    } catch (e) {
+      throw Failure("Something went wrong. Try again");
+    }
+    return null;
+  }
+
+    Future<dynamic> authorizeCard(String pin, String tranId) async {
+    try {
+      var map = jsonEncode({"pin": pin, "transactionId": tranId});
+      var response = await client.post(
+          Uri.parse(baseUrl + Strings.authorizationUrl),
+          body: map,
+          headers: {
+            "Content-type": "application/json",
+          }).timeout(timeLimit);
+      var data = jsonDecode(response.body);
+      interceptResponse(response);
       if (response.statusCode == 200) {
         return data;
       }
@@ -112,6 +143,33 @@ class TransactionService {
             "Content-type": "application/json",
           }).timeout(timeLimit);
       var data = jsonDecode(response.body);
+      interceptResponse(response);
+      if (response.statusCode == 200) {
+        return data;
+      }
+    } on SocketException catch (_) {
+      throw Failure("No internet connection");
+    } on HttpException catch (_) {
+      throw Failure("Service not currently available");
+    } on TimeoutException catch (_) {
+      throw Failure("Poor internet connection");
+    } catch (e) {
+      throw Failure("Something went wrong. Try again");
+    }
+    return null;
+  }
+
+    Future<Map?> processPayment(String cardData, String tranId, String otp) async {
+    try {
+      var map = jsonEncode({"cardEncrypt": cardData, "tranId": tranId, "otp":otp});
+      var response = await client.post(
+          Uri.parse(baseUrl + Strings.transactionProcessingUrl),
+          body: map,
+          headers: {
+            "Content-type": "application/json",
+          }).timeout(timeLimit);
+      var data = jsonDecode(response.body);
+      interceptResponse(response);
       if (response.statusCode == 200) {
         return data;
       }
@@ -134,6 +192,7 @@ class TransactionService {
         "Content-type": "application/json",
       });
       var data = jsonDecode(response.body);
+      interceptResponse(response);
       if (response.statusCode == 200) {
         return data;
       }
@@ -158,6 +217,7 @@ class TransactionService {
           headers: {
             "Content-type": "application/json",
           }).timeout(timeLimit);
+          interceptResponse(response);
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         return data;
@@ -182,6 +242,7 @@ class TransactionService {
             "Content-type": "application/json",
           }).timeout(timeLimit);
       var data = jsonDecode(response.body);
+      interceptResponse(response);
       if (response.statusCode == 200) {
         return TransactionStatus(
             success: true, transactionId: "", message: data['data'] ?? "");
@@ -211,6 +272,7 @@ class TransactionService {
           headers: {
             "Content-type": "application/json",
           }).timeout(timeLimit);
+          interceptResponse(response);
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         return "good";
@@ -236,6 +298,7 @@ class TransactionService {
             "Content-type": "application/json",
           }).timeout(timeLimit);
       var data = jsonDecode(response.body);
+      interceptResponse(response);
       if (response.statusCode == 200) {
         return TransactionStatus(
             success: data['data']['Status'] == "SUCCESSFUL" ? true : false,
@@ -360,13 +423,14 @@ class TransactionService {
   static interceptResponse(http.Response response) async {
     if (kDebugMode) {
       developer.log(response.request.toString());
-      // developer.log(response.headers);
-      print(response.headers);
       developer.log('''Response - ${response.statusCode}
           ${response.request!.url}''');
       developer.log(response.body.toString());
     }
   }
+
+
+  
 }
 
 //veragreen20@gmail.com

@@ -176,33 +176,33 @@ class _PaymentPageState extends State<PaymentPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Future.delayed(const Duration(milliseconds: 100), () {
-    //   if (widget.transRef == null) {
-    //     print(widget.transRef);
-    //     startTransaction();
-    //   }
-    // });
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (widget.transRef == null) {
+        print(widget.transRef);
+        startTransaction();
+      }
+    });
   }
 
   void startTransaction() {
-    // var model = context.read<TransactionProvider>();
-    // model.startTransaction().then((value) {
-    //   print(value);
-    //   if (value != null) {
-    //   } else {
-    //     var model = context.read<TransactionProvider>();
-    //     showTopSnackBar(
-    //       context,
-    //       const CustomSnackBar.error(
-    //         message: "Invalid profile/ api key",
-    //       ),
-    //     );
-    //     Future.delayed(const Duration(seconds: 2), () {
-    //       Navigator.pop(model.mainContext);
-    //     });
-    //   }
-    // });
-    // model.getBanks();
+    var model = context.read<TransactionProvider>();
+    model.startTransaction().then((value) {
+      print(value);
+      if (value != null) {
+      } else {
+        var model = context.read<TransactionProvider>();
+        showTopSnackBar(
+          context,
+          const CustomSnackBar.error(
+            message: "Invalid profile/ api key",
+          ),
+        );
+        Future.delayed(const Duration(seconds: 2), () {
+          Navigator.pop(model.mainContext);
+        });
+      }
+    });
+    model.getBanks();
   }
 
   check(TransactionProvider model, BuildContext context) async {

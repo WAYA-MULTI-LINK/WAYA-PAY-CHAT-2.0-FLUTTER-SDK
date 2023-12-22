@@ -19,6 +19,9 @@ class CardProcessData {
     required  this.tranId,
     required this.scheme,
     required this.wayaPublicKey,
+    required this.merchantId,
+    required this.securityCode,
+    this.recurrent = false
   });
 
   String cardholder;
@@ -30,6 +33,9 @@ class CardProcessData {
   String tranId;
   String scheme;
   String wayaPublicKey;
+  String merchantId;
+  String securityCode;
+  bool recurrent;
 
   factory CardProcessData.fromJson(Map<String, dynamic> json) => CardProcessData(
     cardholder: json["cardholder"],
@@ -41,6 +47,8 @@ class CardProcessData {
     tranId: json["tranId"],
     scheme: json["scheme"],
     wayaPublicKey: json["wayaPublicKey"],
+    securityCode:  json["securityCode"],
+    merchantId: json["merchantId"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -49,9 +57,11 @@ class CardProcessData {
     "expiry": expiry,
     "mobile": mobile,
     "pin": pin,
-    "deviceInformation": deviceInformation,
+    "recurrentPayment":false,
     "tranId": tranId,
     "scheme": scheme,
     "wayaPublicKey": wayaPublicKey,
+    "merchantId":merchantId,
+    "securityCode":securityCode
   };
 }

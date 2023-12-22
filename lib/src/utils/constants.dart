@@ -30,6 +30,7 @@ class Strings {
   static const String transactionProcessingUrl = 'payment-gateway/api/v1/transaction/processing';
   static const String cardEncriptionUrl = 'payment-gateway/api/v1/card/encryption';
   static const String transactionStatusUrl = 'payment-gateway/api/v1/reference/query';
+    static const String authorizationUrl = 'payment-gateway/api/v1/transaction/authorization';
 
   //USSD Transactions
   static const String getUssdBanksUrl = 'ussd-service/api/v2/bank/fetch-all';
