@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(),
+                  const Row(),
                   const SizedBox(
                     height: 20,
                   ),

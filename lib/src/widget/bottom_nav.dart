@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wayapay/src/models/bottom_nav_model.dart';
 import 'package:wayapay/src/res/color.dart';
 import 'package:wayapay/src/res/text.dart';

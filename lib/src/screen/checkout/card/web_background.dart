@@ -12,7 +12,7 @@ class WebBackGround extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(),
+        const Row(),
    // Image.asset("assets/images/waya_orange.png",package: 'wayapay',),
      const   SizedBox(height: 20,),
         Text(

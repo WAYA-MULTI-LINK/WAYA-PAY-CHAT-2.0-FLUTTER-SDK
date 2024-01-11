@@ -20,8 +20,8 @@ class _UssdCheckoutState extends State<UssdCheckout> {
   Bank? bankData;
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width!;
-    double height = MediaQuery.of(context).size.height!;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
    var model = context.watch<TransactionProvider>();
     return Padding(
       padding: const EdgeInsets.only(left:30,right: 30,top: 20,bottom: 20 ),
@@ -80,7 +80,7 @@ class _UssdCheckoutState extends State<UssdCheckout> {
             items: model.banks.map((bank) {
               return DropdownItem<Bank>(
                 value: bank,
-                child: Text(bank.bankName!,
+                child: Text(bank.bankName,
                     style: GoogleFonts.dmSans(
                       textStyle: TextStyle(
                           fontWeight: FontWeight.w700,
@@ -121,7 +121,7 @@ class _UssdCheckoutState extends State<UssdCheckout> {
       await model.startTransaction();
       model.getUssd(bankData!).then((value){
        if(value!=null){
-         Navigator.push(context, MaterialPageRoute(builder: (context)=>UssdDial(ussd: value!, 
+         Navigator.push(context, MaterialPageRoute(builder: (context)=>UssdDial(ussd: value, 
            bankName: bankData!.bankName,)));
        }
       });

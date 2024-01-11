@@ -32,7 +32,7 @@ class _QrCodeState extends State<QrCode> {
         padding: const EdgeInsets.only(left: 30,right: 30),
         child: Column(
           children: [
-            Row(),
+            const Row(),
             const SizedBox(height: 40,),
             const CheckoutTop(),
             SizedBox(height: size.height*0.07,),

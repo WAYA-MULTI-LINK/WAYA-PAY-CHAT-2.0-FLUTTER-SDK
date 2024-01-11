@@ -42,7 +42,7 @@ class Charge {
     String? wayaPublicKey,
   }) =>
       Charge(
-        isTest: isTest??this.isTest,
+        isTest: isTest??isTest,
         amount: amount ?? this.amount,
         description: description ?? this.description,
         currency: currency ?? this.currency,

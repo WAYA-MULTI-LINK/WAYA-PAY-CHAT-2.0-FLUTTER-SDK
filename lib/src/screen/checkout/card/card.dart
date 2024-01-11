@@ -5,12 +5,10 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:wayapay/src/common/card_utils.dart';
 import 'package:wayapay/src/common/constants.dart';
 import 'package:wayapay/src/models/card.dart';
-import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/screen/checkout/card/input/date_field.dart';
 import 'package:wayapay/src/screen/checkout/card/input/number_field.dart';
 import 'package:wayapay/src/screen/checkout/card/pin.dart';
 
-import 'package:wayapay/src/utils/random_funtion.dart';
 import 'package:wayapay/src/widget/button.dart';
 
 import 'input/cvc_field.dart';
@@ -30,10 +28,10 @@ class CardMethod extends StatefulWidget {
 class _CardMethodState extends State<CardMethod> {
   final _formKey = GlobalKey<FormState>();
   final PaymentCard _paymentCard = PaymentCard();
-  var _autoValidate = AutovalidateMode.disabled;
+  final _autoValidate = AutovalidateMode.disabled;
 
   TextEditingController numberController = TextEditingController();
-  bool _validated = false;
+  final bool _validated = false;
 
   bool _isRememberMeChecked = false;
 
@@ -53,7 +51,7 @@ class _CardMethodState extends State<CardMethod> {
 
   @override
   Widget build(BuildContext context) {
-    double? width =MediaQuery.of(context).size.width!;
+    double? width =MediaQuery.of(context).size.width;
     double? height = MediaQuery.of(context).size.height;
     return Form(
       autovalidateMode: _autoValidate,
@@ -72,7 +70,7 @@ class _CardMethodState extends State<CardMethod> {
               },
 
               onSaved: (String? value) => {
-                _paymentCard!.number = CardUtils.getCleanedNumber(value),
+                _paymentCard.number = CardUtils.getCleanedNumber(value),
               },
               suffix: getCardIcon(context)
             ),
@@ -85,8 +83,8 @@ class _CardMethodState extends State<CardMethod> {
                     key: const ValueKey("ExpiryKey"),
                     onChanged: (value) {
                       List<int> expiryDate = CardUtils.getExpiryDate(value);
-                      _paymentCard!.expiryMonth = expiryDate[0];
-                      _paymentCard!.expiryYear = expiryDate[1];
+                      _paymentCard.expiryMonth = expiryDate[0];
+                      _paymentCard.expiryYear = expiryDate[1];
 
                     },
                     onSaved: (value) {
@@ -152,9 +150,9 @@ class _CardMethodState extends State<CardMethod> {
 
   void _getCardTypeFrmNumber() {
     String input = CardUtils.getCleanedNumber(numberController.text);
-    String cardType = _paymentCard!.getTypeForIIN(input);
+    String cardType = _paymentCard.getTypeForIIN(input);
     setState(() {
-      _paymentCard!.type = cardType;
+      _paymentCard.type = cardType;
     });
   }
 
@@ -182,8 +180,8 @@ class _CardMethodState extends State<CardMethod> {
 
 
   Widget getCardIcon(BuildContext context) {
-    double width =MediaQuery.of(context).size.width!;
-    double height = MediaQuery.of(context).size.height!;
+    double width =MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     String img = "";
     var defaultIcon = Icon(
       Icons.credit_card,
@@ -191,7 +189,7 @@ class _CardMethodState extends State<CardMethod> {
       size: (width * height) * 0.00009,
       color: Colors.grey[600],
     );
-    switch (_paymentCard!.type) {
+    switch (_paymentCard.type) {
       case CardType.masterCard:
         img = 'mastercard.png';
         break;

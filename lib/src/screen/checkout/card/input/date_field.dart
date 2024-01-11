@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wayapay/src/common/card_utils.dart';
-import 'package:wayapay/src/common/my_strings.dart';
 import 'package:wayapay/src/models/card.dart';
 import 'package:wayapay/src/screen/checkout/card/input/base_textfield.dart';
 import 'package:wayapay/src/screen/checkout/card/input/formotter.dart';

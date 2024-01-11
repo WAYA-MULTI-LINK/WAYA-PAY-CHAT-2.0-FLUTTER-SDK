@@ -23,7 +23,7 @@ class PayAttitudeComplete extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(),
+            const Row(),
             SizedBox(
               height: 104,
               width: 104,
