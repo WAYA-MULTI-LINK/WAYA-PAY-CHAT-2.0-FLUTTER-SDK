@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -68,11 +70,12 @@ class OTP extends StatelessWidget {
                   onSubmit: (String verificationCode) async {
                     if (verificationCode.length == 6) {
                       var model = context.read<TransactionProvider>();
-                      final result = await model.processPayment(
-                          cardNo, tranId, verificationCode);
-                      if (result != null) {
-                        check(model, context);
-                      }
+                      // final result = await model.processPayment(
+                      //     cardNo, tranId, verificationCode);
+                      // if (result != null) {
+                      //   check(model, context,verificationCode);
+                      // }
+                       check(model, context,verificationCode);
 
                       // Navigator.push(
                       //     context,
@@ -107,23 +110,28 @@ class OTP extends StatelessWidget {
     );
   }
 
-  check(TransactionProvider model, BuildContext context) async {
-    Alerts.onProcessingAlert(context, onLoading: (cxt) {
-      model.checkStatus().then((value) {
-        Navigator.pop(cxt);
-        Future.delayed(const Duration(milliseconds: 500), () {
-          // Alerts.onSuccessAlert(context);
-          if (value != null) {
-            if (value.success) {
-              Alerts.onSuccessAlert(context);
-            } else {
-              Alerts.onPaymentFailed(context, message: value.message);
+  check(TransactionProvider model, BuildContext context,
+      String verificationCode) async {
+    Alerts.onProcessingAlert(context, onLoading: (cxt) async {
+      final result =
+          await model.processPayment(cardNo, tranId, verificationCode);
+      if (result != null) {
+        model.checkStatus().then((value) {
+          Navigator.pop(cxt);
+          Future.delayed(const Duration(milliseconds: 500), () {
+            // Alerts.onSuccessAlert(context);
+            if (value != null) {
+              if (value.success) {
+                Alerts.onSuccessAlert(context);
+              } else {
+                Alerts.onPaymentFailed(context, message: value.message);
+              }
             }
-          }
+          });
+        }).catchError((e) {
+          Navigator.pop(cxt);
         });
-      }).catchError((e) {
-        Navigator.pop(cxt);
-      });
+      }
     });
   }
 }
