@@ -154,10 +154,10 @@ class _PaymentPageState extends State<PaymentPage> {
                             items: method2,
                             onTap: (e) {
                               setState(() {
-                                currentIndex = currentIndex;
+                                currentIndex = e;
                               });
                             },
-                            currentIndex: 0),
+                            currentIndex: currentIndex),
                         const SizedBox(
                           height: 30,
                         ),
