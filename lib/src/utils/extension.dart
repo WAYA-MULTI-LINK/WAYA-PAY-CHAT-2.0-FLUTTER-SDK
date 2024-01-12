@@ -14,7 +14,7 @@ extension StringExtension on String {
   //   symbolSeparator: ' ',
   // );
     // ignore: deprecated_member_use
-    CurrencyFormatterSettings nairaSettings = const CurrencyFormatterSettings(
+    CurrencyFormatterSettings nairaSettings = CurrencyFormatterSettings(
       symbol:'NGN',
       symbolSide: SymbolSide.left,
       thousandSeparator: ',',

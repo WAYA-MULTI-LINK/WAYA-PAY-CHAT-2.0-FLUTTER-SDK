@@ -1,9 +1,6 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:wayapay/src/common/my_strings.dart';
 import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/models/customer.dart';
 import 'package:wayapay/src/models/traansaction_status.dart';
@@ -11,7 +8,6 @@ import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/screen/main_page/payment_page.dart';
 import 'package:wayapay/src/service/transaction_service.dart';
 import 'package:wayapay/src/utils/constants.dart';
-import 'package:wayapay/src/models/customer.dart' as customer;
 
 import 'wayapay_platform_interface.dart';
 export 'package:wayapay/src/models/charge.dart';

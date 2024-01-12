@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wayapay/src/common/my_strings.dart';
 import 'package:wayapay/src/models/card.dart';
 import 'package:wayapay/src/utils/constants.dart';
 

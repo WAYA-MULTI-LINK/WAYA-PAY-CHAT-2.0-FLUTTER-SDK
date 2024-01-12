@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import 'package:wayapay/src/enum/app_state.dart';
 import 'package:wayapay/src/models/user_data.dart';
 import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/res/color.dart';
@@ -39,7 +38,7 @@ class _WalletState extends State<Wallet> {
               const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
           child: Column(
             children: [
-              Row(),
+              const Row(),
               const SizedBox(
                 height: 20,
               ),
@@ -90,7 +89,7 @@ class _WalletState extends State<Wallet> {
                 height: 14,
               ),
               walletData == null
-                  ? SizedBox()
+                  ? const SizedBox()
                   : Row(
                       children: [
                         Container(

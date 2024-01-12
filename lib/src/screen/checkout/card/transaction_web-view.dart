@@ -57,7 +57,7 @@ class _CardWebViewState extends State<CardWebView> {
             initialUrlRequest: URLRequest(url:Uri.parse(widget.htmlData.data.callbackUrl) ),
             onUpdateVisitedHistory: (a,b,c){
              if(b!=null){
-               var uri = b!;
+               var uri = b;
                var link = uri.host+uri.path+uri.fragment;
              }
              },
@@ -71,7 +71,7 @@ class _CardWebViewState extends State<CardWebView> {
               },
             onLoadStart: (controller,b){
               if(b!=null){
-                var uri = b!;
+                var uri = b;
                 var link = uri.host+uri.path+uri.fragment;
 
               }
@@ -79,14 +79,14 @@ class _CardWebViewState extends State<CardWebView> {
 
             onLoadStop:(controller,b){
               if(b!=null){
-                var uri = b!;
+                var uri = b;
                 var link = uri.host+uri.path+uri.fragment;
                 setState(() {
                   index=1;
                 });
                 if(link.contains(wayaPay)&&hasOpen==false){
 
-                  Future.delayed(Duration(seconds: 3),(){
+                  Future.delayed(const Duration(seconds: 3),(){
                     hasOpen=true;
                   });
 

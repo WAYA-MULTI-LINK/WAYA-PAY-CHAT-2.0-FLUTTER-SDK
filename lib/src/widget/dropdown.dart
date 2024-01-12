@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropdown<T> extends StatefulWidget {
@@ -76,10 +75,9 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
         height: style.height,
         child: OutlinedButton(
           style: OutlinedButton.styleFrom(
-            padding: style.padding,
+            foregroundColor: style.primaryColor, padding: style.padding,
             backgroundColor: style.backgroundColor,
             elevation: style.elevation,
-            primary: style.primaryColor,
             shape: style.shape,
           ),
           onPressed: _toggleDropdown,
@@ -117,7 +115,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
     var size = renderBox?.size;
 
     var offset = renderBox?.localToGlobal(Offset.zero);
-    var topOffset = offset!.dy + size!.height! + 5;
+    var topOffset = offset!.dy + size!.height+ 5;
     return OverlayEntry(
       // full screen GestureDetector to register when a
       // user has clicked away from the dropdown
@@ -197,7 +195,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
       });
     } else {
       _overlayEntry = _createOverlayEntry();
-      Overlay.of(context)!.insert(_overlayEntry!);
+      Overlay.of(context).insert(_overlayEntry!);
       setState(() => _isOpen = true);
       _animationController!.forward();
     }

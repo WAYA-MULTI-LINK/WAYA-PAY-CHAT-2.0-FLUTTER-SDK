@@ -5,7 +5,6 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:wayapay/src/common/card_utils.dart';
 import 'package:wayapay/src/common/constants.dart';
 import 'package:wayapay/src/models/card.dart';
-import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/screen/checkout/card/input/date_field.dart';
 import 'package:wayapay/src/screen/checkout/card/input/number_field.dart';
 import 'package:wayapay/src/widget/button.dart';
@@ -48,7 +47,7 @@ class _CardInputState extends State<CardInput> {
 
   @override
   Widget build(BuildContext context) {
-    double? width =MediaQuery.of(context).size.width!;
+    double? width =MediaQuery.of(context).size.width;
     double? height = MediaQuery.of(context).size.height;
     return Form(
       autovalidateMode: _autoValidate,
@@ -65,7 +64,7 @@ class _CardInputState extends State<CardInput> {
             },
 
             onSaved: (String? value) => {
-              _paymentCard!.number = CardUtils.getCleanedNumber(value),
+              _paymentCard.number = CardUtils.getCleanedNumber(value),
             },
             suffix: getCardIcon(context),
           ),
@@ -78,8 +77,8 @@ class _CardInputState extends State<CardInput> {
                   key: const ValueKey("ExpiryKey"),
                   onChanged: (value) {
                   List<int> expiryDate = CardUtils.getExpiryDate(value);
-                  _paymentCard!.expiryMonth = expiryDate[0];
-                  _paymentCard!.expiryYear = expiryDate[1];
+                  _paymentCard.expiryMonth = expiryDate[0];
+                  _paymentCard.expiryYear = expiryDate[1];
 
                   },
                   onSaved: (value) {
@@ -140,9 +139,9 @@ class _CardInputState extends State<CardInput> {
 
   void _getCardTypeFrmNumber() {
     String input = CardUtils.getCleanedNumber(numberController.text);
-    String cardType = _paymentCard!.getTypeForIIN(input);
+    String cardType = _paymentCard.getTypeForIIN(input);
     setState(() {
-      _paymentCard!.type = cardType;
+      _paymentCard.type = cardType;
     });
   }
 
@@ -169,8 +168,8 @@ class _CardInputState extends State<CardInput> {
     print(_paymentCard.toString());
   }
   Widget getCardIcon(BuildContext context) {
-    double width =MediaQuery.of(context).size.width!;
-    double height = MediaQuery.of(context).size.height!;
+    double width =MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     String img = "";
     var defaultIcon = Icon(
       Icons.credit_card,
@@ -178,7 +177,7 @@ class _CardInputState extends State<CardInput> {
       size: (width * height) * 0.00009,
       color: Colors.grey[600],
     );
-    switch (_paymentCard!.type) {
+    switch (_paymentCard.type) {
       case CardType.masterCard:
         img = 'mastercard.png';
         break;

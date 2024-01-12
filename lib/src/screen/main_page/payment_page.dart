@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -53,6 +51,8 @@ class _PaymentPageState extends State<PaymentPage> {
         name: "Account",
         icon: Icons.account_balance_wallet,
         body: const AccountPayment()),
+         BottomNavModel(
+        name: "Card", icon: Icons.credit_card, body: const CardMethod()),
   ];
   int currentIndex = 0;
   @override
@@ -154,7 +154,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             items: method2,
                             onTap: (e) {
                               setState(() {
-                                currentIndex = e;
+                                currentIndex = currentIndex;
                               });
                             },
                             currentIndex: 0),

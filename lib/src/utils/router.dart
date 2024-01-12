@@ -115,19 +115,19 @@ class Exit{
             content: Text(confirmationMessage),
             actions: <Widget>[
               CupertinoDialogAction(
-                  child: const Text('Yes'),
                   isDestructiveAction: true,
                   onPressed: (){
                     Navigator.pop(context);
                     Navigator.pop(context);
-                  }),
+                  },
+                  child: const Text('Yes')),
               CupertinoDialogAction(
-                  child: const Text('No'),
                   isDefaultAction: true,
                   onPressed: (){
                     Navigator.pop(context,false);
 
-                  }),
+                  },
+                  child: const Text('No')),
             ],
           )
               : AlertDialog(

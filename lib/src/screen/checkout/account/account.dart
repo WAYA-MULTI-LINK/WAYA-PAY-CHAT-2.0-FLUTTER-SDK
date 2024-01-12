@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wayapay/src/screen/checkout/account/login.dart';
-import 'package:wayapay/src/screen/checkout/account/qr_code.dart';
 
 class AccountPayment extends StatelessWidget {
   const AccountPayment({Key? key}) : super(key: key);
@@ -16,7 +15,7 @@ class AccountPayment extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(),
+          const Row(),
           paymentMethod(
              'Login to Pay',
               text1,

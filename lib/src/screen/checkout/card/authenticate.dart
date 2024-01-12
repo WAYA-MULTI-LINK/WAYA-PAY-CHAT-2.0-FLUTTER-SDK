@@ -7,7 +7,6 @@ import 'package:wayapay/src/alert/alert.dart';
 import 'package:wayapay/src/models/card.dart';
 import 'package:wayapay/src/provider/transaction_provider.dart';
 import 'package:wayapay/src/screen/checkout/card/otp.dart';
-import 'package:wayapay/src/screen/checkout/card/transaction_web-view.dart';
 import 'package:wayapay/src/screen/main_page/footer.dart';
 import 'package:wayapay/src/screen/main_page/top.dart';
 import 'package:wayapay/src/widget/appbar.dart';
@@ -40,7 +39,7 @@ class AuthenticateCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(),
+            const Row(),
             const SizedBox(
               height: 30,
             ),

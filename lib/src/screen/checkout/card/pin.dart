@@ -28,7 +28,7 @@ class Pin extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(),
+                const Row(),
                const SizedBox(height: 40,),
                  const CheckoutTop(),
                 const SizedBox(height: 40,),

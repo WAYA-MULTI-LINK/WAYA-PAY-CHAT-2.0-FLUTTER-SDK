@@ -2,14 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/models/customer.dart';
 import 'package:wayapay/src/models/traansaction_status.dart';
-import 'package:wayapay/src/provider/transaction_provider.dart';
 
 class SuccessTransaction extends StatefulWidget {
  final Charge charge;

@@ -69,10 +69,10 @@ packages:
     dependency: transitive
     description:
       name: currency_formatter
-      sha256: "0096e2989931e20ef1c1d1e2c3bb666e538c0322ae4c55343f5b017bca282887"
+      sha256: "73df6323b25bfe7ecfc45eb7d73ca4c47b54c29677b5e93ea091cca7c1c37fef"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "2.2.0"
   custom_timer:
     dependency: transitive
     description:
@@ -188,10 +188,10 @@ packages:
     dependency: transitive
     description:
       name: intl
-      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.17.0"
+    version: "0.18.1"
   lints:
     dependency: transitive
     description:

@@ -19,8 +19,8 @@ class UssdDial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width!;
-    double height = MediaQuery.of(context).size.height!;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     var model = context.read<TransactionProvider>();
     return Scaffold(
      appBar: appBar(context),
@@ -29,7 +29,7 @@ class UssdDial extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(),
+            const Row(),
             const CheckoutTop(),
             SizedBox(
               height: height * 0.12,

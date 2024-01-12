@@ -7,7 +7,6 @@ import 'package:wayapay/src/models/card.dart';
 import 'package:wayapay/src/models/card_process_data.dart';
 import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/models/customer.dart';
-import 'package:wayapay/src/models/customer.dart' as customer;
 import 'package:wayapay/src/models/encrpt.dart';
 import 'package:wayapay/src/models/htm_data.dart';
 import 'package:wayapay/src/models/paymentData.dart';

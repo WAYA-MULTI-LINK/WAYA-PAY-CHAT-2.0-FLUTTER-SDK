@@ -3,10 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:wayapay/src/common/my_strings.dart';
 import 'package:wayapay/src/models/charge.dart';
 import 'package:wayapay/src/models/failure.dart';
-import 'package:wayapay/src/models/response_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:wayapay/src/models/traansaction_status.dart';
 import 'package:wayapay/src/models/ussd_payload.dart';

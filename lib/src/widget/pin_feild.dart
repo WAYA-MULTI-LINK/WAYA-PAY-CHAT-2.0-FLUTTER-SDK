@@ -34,7 +34,7 @@ class OtpTextField extends StatefulWidget {
   final InputDecoration? decoration;
   final List<TextStyle?> styles;
 
-  OtpTextField({
+  const OtpTextField({super.key, 
     this.numberOfFields = 4,
     this.fieldWidth = 40.0,
     this.fieldHeight = 70.0,
@@ -90,8 +90,9 @@ class _OtpTextFieldState extends State<OtpTextField> {
   @override
   void dispose() {
     super.dispose();
-    _textControllers
-        .forEach((TextEditingController? controller) => controller?.dispose());
+    for (var controller in _textControllers) {
+      controller?.dispose();
+    }
   }
 
   @override
@@ -176,7 +177,7 @@ class _OtpTextFieldState extends State<OtpTextField> {
       addFocusNodeToEachTextField(index: i);
       addTextEditingControllerToEachTextField(index: i);
 
-      if (widget.styles.length > 0) {
+      if (widget.styles.isNotEmpty) {
         return _buildTextField(
           context: context,
           index: i,
@@ -210,7 +211,7 @@ class _OtpTextFieldState extends State<OtpTextField> {
     required int indexOfTextField,
   }) {
     //only change focus to the next textField if the value entered has a length greater than one
-    if (value.length > 0) {
+    if (value.isNotEmpty) {
       //if the textField in focus is not the last textField,
       // change focus to the next textField
       if (indexOfTextField + 1 != widget.numberOfFields) {

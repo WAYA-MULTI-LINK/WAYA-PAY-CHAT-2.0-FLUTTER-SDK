@@ -104,7 +104,7 @@ class _PayAttitudeState extends State<PayAttitude> {
        if(value!=null){
         model.postPayAttitude(value.body.data);
         Future.delayed(const Duration(seconds:1 ),(){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>PayAttitudeComplete()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const PayAttitudeComplete()));
         });
        }
      });
