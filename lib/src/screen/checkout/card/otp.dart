@@ -131,6 +131,10 @@ class OTP extends StatelessWidget {
         }).catchError((e) {
           Navigator.pop(cxt);
         });
+      }else{
+         Alerts.onPaymentFailed(context, message: result!.message);
+        
+
       }
     });
   }
