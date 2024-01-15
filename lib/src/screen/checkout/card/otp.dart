@@ -132,7 +132,8 @@ class OTP extends StatelessWidget {
           Navigator.pop(cxt);
         });
       }else{
-         Alerts.onPaymentFailed(context, message: result!.message);
+         Navigator.pop(cxt);
+        //  Alerts.onPaymentFailed(context, message: result!.message);
         
 
       }

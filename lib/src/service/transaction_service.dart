@@ -170,6 +170,8 @@ class TransactionService {
       interceptResponse(response);
       if (response.statusCode == 200) {
         return data;
+      }else{
+        throw data['message'];
       }
     } on SocketException catch (_) {
       throw Failure("No internet connection");
@@ -178,7 +180,7 @@ class TransactionService {
     } on TimeoutException catch (_) {
       throw Failure("Poor internet connection");
     } catch (e) {
-      throw Failure("Something went wrong. Try again");
+      throw Failure(e.toString());
     }
     return null;
   }
