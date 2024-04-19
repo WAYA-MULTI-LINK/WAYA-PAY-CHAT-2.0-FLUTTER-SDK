@@ -77,8 +77,8 @@ class TransactionProvider extends BaseViewModel {
       var cardData = CardProcessData(
         cardholder: charge.customer.name,
         encryptCardNo: paymentCard.number!,
-        expiry: "${paymentCard.expiryYear}${add(paymentCard.expiryMonth!)}${paymentCard.expiryMonth}",
-        // "${add(paymentCard.expiryMonth!)}${paymentCard.expiryMonth}/${paymentCard.expiryYear}",
+        //expiry: "${paymentCard.expiryYear}${add(paymentCard.expiryMonth!)}${paymentCard.expiryMonth}",
+        "${add(paymentCard.expiryMonth!)}${paymentCard.expiryMonth}${paymentCard.expiryYear}",
         mobile: charge.customer.phoneNumber,
         pin: pin,
         securityCode: paymentCard.cvc!,
