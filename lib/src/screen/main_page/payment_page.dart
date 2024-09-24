@@ -118,7 +118,7 @@ class _PaymentPageState extends State<PaymentPage> {
       }else{
         var model = context.read<TransactionProvider>();
         showTopSnackBar(
-          context,
+          Overlay.of(context),
           const CustomSnackBar.error(
             message:
             "Invalid profile/ api key",

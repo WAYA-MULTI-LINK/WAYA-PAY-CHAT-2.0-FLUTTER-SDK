@@ -127,7 +127,7 @@ class _UssdCheckoutState extends State<UssdCheckout> {
       });
     }else{
       showTopSnackBar(
-        context,
+        Overlay.of(context),
         const CustomSnackBar.error(
           message:
           "Select a bank",

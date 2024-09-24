@@ -184,7 +184,7 @@ class _WalletState extends State<Wallet> {
                       MaterialPageRoute(builder: (context)=>WalletPin(walletData: walletData!,token: widget.userData.data.token,)));
                 }else{
                   showTopSnackBar(
-                    context,
+                    Overlay.of(context),
                     const CustomSnackBar.error(
                       message:
                       "Select a wallet",

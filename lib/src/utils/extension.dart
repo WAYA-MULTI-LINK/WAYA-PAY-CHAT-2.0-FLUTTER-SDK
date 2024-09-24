@@ -1,16 +1,16 @@
-
 import 'package:currency_formatter/currency_formatter.dart';
 
 extension StringExtension on String {
   String toCurrency() {
-    CurrencyFormatter cf = CurrencyFormatter();
-    CurrencyFormatterSettings nairaSettings = CurrencyFormatterSettings(
-      symbol:'NGN',
+
+    CurrencyFormat nairaSettings = const CurrencyFormat(
+      symbol: 'NGN',
       symbolSide: SymbolSide.left,
       thousandSeparator: ',',
       decimalSeparator: '.',
     );
-    String formatted = cf.format(double.parse(this), nairaSettings);
+
+    String formatted = CurrencyFormatter.format(double.parse(this), nairaSettings);
     return formatted;
   }
 
