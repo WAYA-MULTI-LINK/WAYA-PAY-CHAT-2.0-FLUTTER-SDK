@@ -110,7 +110,7 @@ class UssdDial extends StatelessWidget {
   copyToClipboard(String text,BuildContext context)  {
     Clipboard.setData(ClipboardData(text: text)).then((value){
       showTopSnackBar(
-        context,
+        Overlay.of(context),
         const CustomSnackBar.info(
           message: "Copied to clipboard",
         ),

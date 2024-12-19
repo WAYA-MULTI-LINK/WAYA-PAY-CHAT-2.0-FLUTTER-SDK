@@ -157,7 +157,7 @@ class _CardInputState extends State<CardInput> {
       }
     } else {
       showTopSnackBar(
-        context,
+        Overlay.of(context),
         const CustomSnackBar.error(
           message:
           "Something went wrong. Please check your entries and try again",

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,10 +11,15 @@ import 'package:wayapay/src/models/traansaction_status.dart';
 import 'package:wayapay/src/provider/transaction_provider.dart';
 
 class SuccessTransaction extends StatefulWidget {
- final Charge charge;
- final BuildContext mainContext;
+  final Charge charge;
+  final BuildContext mainContext;
   final CustomerCharge customerCharge;
-  const SuccessTransaction({Key? key, required this.charge, required this.customerCharge, required this.mainContext}) : super(key: key);
+  const SuccessTransaction(
+      {Key? key,
+      required this.charge,
+      required this.customerCharge,
+      required this.mainContext})
+      : super(key: key);
 
   @override
   State<SuccessTransaction> createState() => _SuccessTransactionState();
@@ -28,7 +32,7 @@ class _SuccessTransactionState extends State<SuccessTransaction> {
     double height = MediaQuery.of(context).size.height;
     print(widget.customerCharge.data.tranId);
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         pop();
         return true;
       },
@@ -50,9 +54,9 @@ class _SuccessTransactionState extends State<SuccessTransaction> {
               textAlign: TextAlign.center,
               style: GoogleFonts.dmSans(
                   textStyle: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize:17 ,
-                  )),
+                fontWeight: FontWeight.w700,
+                fontSize: 17,
+              )),
             ),
             SizedBox(
               height: height * 0.01,
@@ -87,10 +91,12 @@ class _SuccessTransactionState extends State<SuccessTransaction> {
                 IconButton(
                   icon: const Icon(Icons.copy),
                   color: Colors.black26,
-                  onPressed: ()  {
-                    Clipboard.setData(ClipboardData(text:widget.customerCharge.data.tranId )).then((value){
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(
+                            text: widget.customerCharge.data.tranId))
+                        .then((value) {
                       showTopSnackBar(
-                        context,
+                        Overlay.of(context),
                         const CustomSnackBar.info(
                           message: "Copied to clipboard",
                         ),
@@ -102,11 +108,11 @@ class _SuccessTransactionState extends State<SuccessTransaction> {
             ),
             DialogButton(
                 key: const Key("okButton"),
-                width:115 ,
+                width: 115,
                 color: Colors.white,
                 border: Border.all(color: Colors.grey),
                 onPressed: () {
-                 pop();
+                  pop();
                 },
                 child: Text("Okay",
                     style: GoogleFonts.lato(
@@ -119,13 +125,13 @@ class _SuccessTransactionState extends State<SuccessTransaction> {
     );
   }
 
-
-  pop(){
+  pop() {
     Navigator.pop(context);
-    Navigator.pop(widget.mainContext,TransactionStatus(
-        success: true,
-        message: "success",
-       transactionId:widget.customerCharge!.data.tranId
-    ));
+    Navigator.pop(
+        widget.mainContext,
+        TransactionStatus(
+            success: true,
+            message: "success",
+            transactionId: widget.customerCharge!.data.tranId));
   }
 }
