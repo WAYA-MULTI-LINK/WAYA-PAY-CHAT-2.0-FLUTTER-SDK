@@ -132,7 +132,7 @@ final String baseUrl;
 
   Future<Map?> getBankList() async {
     try {
-      var response = await client.get(Uri.parse(baseUrl+Strings.getUssdBanksUrl),
+      var response = await client.get(Uri.parse(baseUrl+Strings.getBanksUrl),
           headers: {
             "Content-type": "application/json",
           });

@@ -1,52 +1,20 @@
 name: wayapay
-description: A new Flutter project.
-version: 0.0.1
-homepage:
+description: A Dart/Flutter client for the WayaPay payment collection and payout API.
+version: 0.1.0
+homepage: https://wayapay.ng
 
 environment:
-  sdk: '>=2.18.2 <3.0.0'
-  flutter: ">=2.5.0"
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
-  currency_formatter: ^1.2.0
-  get: ^4.6.5
-  provider: ^6.0.4
-  http: ^0.13.5
-  flutter_svg:
-  intl: ^0.17.0
-  google_fonts: ^3.0.1
-  credit_card_field: ^1.0.2
-  top_snackbar_flutter: ^2.1.1
-  flutter_inappwebview: ^5.7.1
-  webview_flutter: ^3.0.4
-  rflutter_alert: ^2.0.4
-  animated_rotating_widget: ^0.0.2
-  fluttertoast: ^8.1.1
-  custom_timer: ^0.1.2
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^2.0.2
+  http: ^1.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
 flutter:
-  uses-material-design: true
-  plugin:
-    platforms:
-      android:
-        package: com.example.wayapay
-        pluginClass: WayapayPlugin
-      ios:
-        pluginClass: WayapayPlugin
-
-
-  assets:
-     - assets/images/
-
